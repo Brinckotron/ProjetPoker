@@ -1,0 +1,4 @@
+
+{csharpsquid:S3776	"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(¢Í«½ÿÿÿÿÿ8ÉÁš´ç1
+Kcsharpsquid:S3903".Move 'StatsCalculator' into a named namespace.(¸ïÓž
+?csharpsquid:S3626B"Remove this redundant jump.(ÉŠ©ƒ8ž¸÷´ç1
