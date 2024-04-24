@@ -1,0 +1,10 @@
+
+csharpsquid:S1210"\When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=.(¬ÍŠ~J$642f4251-5545-4a1e-919e-33dbeb1b4398
+ncsharpsquid:S3903
+"&Move 'Symbole' into a named namespace.(–¤ñşÿÿÿÿJ$b6d8c40f-d229-4ac2-a1df-b50f8f81473c
+jcsharpsquid:S3903"(Move 'CarteData' into a named namespace.(¬ÍŠ~J$c6dcfbb7-4aae-42d8-bb83-5b1140204357
+gcsharpsquid:S3903#"$Move 'Carte' into a named namespace.(—“î‚J$c2863e47-039b-4d30-93f0-9cdd24550eec
+†csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(áşÃ-J$a9f735e2-6866-4265-9ecd-8d4d99570aba
+Œcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(·¥åˆùÿÿÿÿJ$47719892-974b-4086-a622-945b1926159a
+csharpsquid:S1104)"DMake this field 'private' and encapsulate it in a 'public' property.(È˜ˆğ8È¤Šğğ1J$2a22a076-159e-4251-bd8a-b98c74c54486
+“csharpsquid:S1104*"DMake this field 'private' and encapsulate it in a 'public' property.(Ü”»¤ÿÿÿÿÿ8ÆÚ”ğğ1J$da6a8e88-918b-489e-aede-01f0868815c7

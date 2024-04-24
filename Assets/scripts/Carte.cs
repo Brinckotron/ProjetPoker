@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using TMPro.SpriteAssetUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum Symbole
 {
@@ -34,11 +36,42 @@ public class Carte : MonoBehaviour
 {
     [SerializeField] private TMP_Text valeurText;
     [SerializeField] private TMP_Text symboleText;
-    
-    
+    [SerializeField] private Image frame;
+    private CarteData _carteData;
+    public bool isSelected = false;
+    public bool isKept = false;
+
+    public CarteData Data
+    {
+        get { return _carteData; }
+    }
+
+    public void Select()
+    {
+        if (!isKept)
+        {
+            if (!isSelected) frame.color = Color.yellow;
+            else frame.color = Color.black;
+            isSelected = !isSelected;
+        }
+    }
+
+    public void Keep()
+    {
+        isSelected = false;
+        isKept = true;
+        frame.color = Color.green;
+    }
+
+    public void Unkeep()
+    {
+        isKept = false;
+        frame.color = Color.black;
+    }
 
     internal void SetData(CarteData carteData)
     {
+        _carteData = carteData;
         string valeurString = carteData.valeur.ToString();
         switch (carteData.valeur)
         {
