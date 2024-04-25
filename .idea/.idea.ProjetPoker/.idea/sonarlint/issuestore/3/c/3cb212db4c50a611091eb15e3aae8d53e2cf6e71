@@ -1,3 +1,8 @@
 
-mcsharpsquid:S3903"%Move 'Player' into a named namespace.(¹Ç‹òøÿÿÿÿJ$85c274ad-cc4a-4861-aad9-813c1bc7c551
-csharpsquid:S2292"DMake this an auto-implemented property and remove its backing field.(ÑúÕ”8ğç¸èğ1J$7473aa54-dad2-4289-a5c0-d4113e6863a0
+œcsharpsquid:S3776~"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(è¹¸Ã8Öğ™ ñ1J$0a8a4b58-2ce9-426e-ade4-df300a6ecddd
+œcsharpsquid:S3776û"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(ò¨›E8¬äñ1J$77f38904-56a2-43ea-8966-dbc904d2b054
+mcsharpsquid:S3903
+"%Move 'Player' into a named namespace.(¹Ç‹òøÿÿÿÿJ$0d8b4cfe-2524-4f0c-bf6f-f01ac269d0fa
+csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(’Ÿ…8ì¹ö“ñ1J$c1095ee2-dc08-4cbd-8e64-7e78ac67ad91
+csharpsquid:S2292"DMake this an auto-implemented property and remove its backing field.(ÑúÕ”8è¬ş‘ñ1J$fdc753f7-1d19-4026-893c-2b8f8775de44
+†csharpsquid:S4158†";Remove this call, the collection is known to be empty here.(ü€‘Ş8÷  ñ1J$2961e160-3e86-44c6-950f-c78590d6279a

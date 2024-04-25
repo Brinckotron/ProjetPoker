@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Color: {r: 0.754717, g: 0.754717, b: 0.754717, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -436,3 +436,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   valeurText: {fileID: 8585673543993914845}
   symboleText: {fileID: 1616966346930399072}
+  frame: {fileID: 4642154220397327404}
+  core: {fileID: 6513129587870414625}
+  deckTransform: {fileID: 0}
+  discardTransform: {fileID: 0}
+  CarteVerso: {fileID: 7310186784985839140, guid: 7f34ab4ea74c5f844b1938b8334c0d7f, type: 3}
+  isSelected: 0
+  isKept: 0
+  isFree: 0
+  goldValue: 0

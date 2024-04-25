@@ -439,8 +439,14 @@ MonoBehaviour:
   valeurText: {fileID: 8585673543993914845}
   symboleText: {fileID: 1616966346930399072}
   frame: {fileID: 4642154220397327404}
+  core: {fileID: 6513129587870414625}
+  deckTransform: {fileID: 0}
+  discardTransform: {fileID: 0}
+  CarteVerso: {fileID: 7310186784985839140, guid: 7f34ab4ea74c5f844b1938b8334c0d7f, type: 3}
   isSelected: 0
   isKept: 0
+  isFree: 0
+  goldValue: 0
 --- !u!61 &9147338776602005339
 BoxCollider2D:
   m_ObjectHideFlags: 0
