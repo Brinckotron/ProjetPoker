@@ -1,4 +1,8 @@
 
-tcsharpsquid:S3903",Move 'BattleManager' into a named namespace.(ŸÿóãıÿÿÿÿJ$d1a410d8-d50e-4e56-afe4-3cbd8337bb44
-“csharpsquid:S2292"DMake this an auto-implemented property and remove its backing field.(ïŠ‘¬üÿÿÿÿ8‡š¥—ñ1J$2ba1ffa7-7205-4728-ba66-6a04f7d4d329
-csharpsquid:S2292"DMake this an auto-implemented property and remove its backing field.(òúÿ½8î±³…ñ1J$4ae12789-f7a5-4b70-9cfa-dc6fdea6d12b
+¢csharpsquid:S3776­"RRefactor this method to reduce its Cognitive Complexity from 66 to the 15 allowed.(«Ê®ñûÿÿÿÿ8É· íñ1J$5de04724-7739-49ac-b7b9-efadafbc653c
+tcsharpsquid:S3903
+",Move 'BattleManager' into a named namespace.(ŸÿóãıÿÿÿÿJ$c88adc44-d8e0-48b7-b615-01e18a6f1892
+csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(¸Î½\8âí ìñ1J$875b4990-fe99-47a1-913b-16231ca9a890
+“csharpsquid:S2292)"DMake this an auto-implemented property and remove its backing field.(ïŠ‘¬üÿÿÿÿ8Ë· íñ1J$c7e3412d-0080-40b4-8150-4cc886ecda2b
+csharpsquid:S2292/"DMake this an auto-implemented property and remove its backing field.(òúÿ½8Ë· íñ1J$8c198c10-8bf2-4cba-821e-6ea2f8348126
+Ccsharpsquid:S125ş"Remove this commented out code.(©ô¯Î8ˆÕÑññ1

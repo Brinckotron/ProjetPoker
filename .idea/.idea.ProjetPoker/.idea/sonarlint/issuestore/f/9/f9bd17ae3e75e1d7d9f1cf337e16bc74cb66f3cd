@@ -1,12 +1,12 @@
 
-csharpsquid:S1210"\When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=.(¬ÍŠ~J$ec5456ea-9755-4ed2-ba32-20333a7f0bcf
+csharpsquid:S1210"\When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=.(¬ÍŠ~J$c39b7bdf-144d-430e-b8aa-9601e7c62588
 ncsharpsquid:S3903
-"&Move 'Symbole' into a named namespace.(–¤ñşÿÿÿÿJ$44e3747e-3b57-4086-8493-b414d80086ee
-jcsharpsquid:S3903"(Move 'CarteData' into a named namespace.(¬ÍŠ~J$c0306b59-1889-4b8a-801a-8e335cff4259
-gcsharpsquid:S3903#"$Move 'Carte' into a named namespace.(—“î‚J$f4762ab6-a553-4f82-88ee-87e3fde1122d
-†csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(áşÃ-J$d74863f8-4dfe-4681-b839-904b3f8b323d
-Œcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(·¥åˆùÿÿÿÿJ$4b2ccd89-dce7-4db9-abd7-71b6c331613d
-csharpsquid:S1104-"DMake this field 'private' and encapsulate it in a 'public' property.(È˜ˆğ8È¤Šğğ1J$4e9a0fbc-9a4a-4485-91de-2122adff433e
-“csharpsquid:S1104."DMake this field 'private' and encapsulate it in a 'public' property.(Ü”»¤ÿÿÿÿÿ8ÆÚ”ğğ1J$3c8eef2c-dd0f-454d-8058-fba79d5593d9
-“csharpsquid:S1104/"DMake this field 'private' and encapsulate it in a 'public' property.(†ªòüÿÿÿÿ8˜¯ğ…ñ1J$fa39d2f6-ef9f-4d85-ba26-0d8664785606
-“csharpsquid:S11040"DMake this field 'private' and encapsulate it in a 'public' property.(ã¨…øÿÿÿÿ8äßó…ñ1J$017a31f6-7a11-4908-b5a2-e0fd6f807f7a
+"&Move 'Symbole' into a named namespace.(–¤ñşÿÿÿÿJ$e012b5d5-b711-4411-96ad-73a2ed5e2160
+gcsharpsquid:S3903#"$Move 'Carte' into a named namespace.(—“î‚J$9aaf2a75-5025-4dc8-a88d-8b4d19563766
+jcsharpsquid:S3903"(Move 'CarteData' into a named namespace.(¬ÍŠ~J$0046e88d-aeae-4ceb-82e8-e663a863a400
+csharpsquid:S1104-"DMake this field 'private' and encapsulate it in a 'public' property.(È˜ˆğ8È¤Šğğ1J$b6a4678c-607c-4e31-a7f6-0c8b25cb7237
+“csharpsquid:S1104."DMake this field 'private' and encapsulate it in a 'public' property.(Ü”»¤ÿÿÿÿÿ8ÆÚ”ğğ1J$a917be05-4b30-4b31-8396-9cd4cb8a307d
+“csharpsquid:S1104/"DMake this field 'private' and encapsulate it in a 'public' property.(†ªòüÿÿÿÿ8˜¯ğ…ñ1J$796cfaef-5d7a-46d4-9ae7-84f2f135470b
+“csharpsquid:S11040"DMake this field 'private' and encapsulate it in a 'public' property.(ã¨…øÿÿÿÿ8äßó…ñ1J$468e91c6-70bc-4118-bdf3-2dbafd705653
+†csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(áşÃ-J$6c2c3e98-ff9a-4d37-ae65-d5a7ad154089
+Œcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(·¥åˆùÿÿÿÿJ$0ad29143-36fe-4c53-ba8f-991b6aaaf128

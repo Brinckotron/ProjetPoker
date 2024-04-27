@@ -15,7 +15,7 @@ public enum Symbole
     Trefle
 }
 
-public class CarteData: IComparable<CarteData>
+public class CarteData : IComparable<CarteData>
 {
     public int valeur;
     public Symbole symbole;
@@ -116,16 +116,18 @@ public class Carte : MonoBehaviour
     {
         StartCoroutine(DiscardAnimation());
     }
+
     public IEnumerator DrawAnimation()
     {
         GameObject carteVerso = Instantiate(CarteVerso, deckTransform);
-        
+
         for (float i = 0; i < 11; i++)
         {
             carteVerso.transform.position = Vector2.Lerp(deckTransform.position, transform.position, i / 10);
             carteVerso.transform.rotation = Quaternion.Lerp(deckTransform.rotation, transform.rotation, i / 10);
             yield return new WaitForSeconds(0.05f);
         }
+
         frame.enabled = true;
         core.enabled = true;
         symboleText.enabled = true;
@@ -146,6 +148,7 @@ public class Carte : MonoBehaviour
             carteVerso.transform.rotation = Quaternion.Lerp(transform.rotation, discardTransform.rotation, i / 10);
             yield return new WaitForSeconds(0.05f);
         }
+
         Destroy(carteVerso);
     }
 
@@ -168,7 +171,7 @@ public class Carte : MonoBehaviour
                 valeurString = "K";
                 break;
         }
-        
+
         string symboleString = "";
         switch (carteData.symbole)
         {
@@ -193,7 +196,7 @@ public class Carte : MonoBehaviour
                 valeurText.color = Color.black;
                 break;
         }
-        
+
         valeurText.text = valeurString;
         symboleText.text = symboleString;
     }
