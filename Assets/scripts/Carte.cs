@@ -19,6 +19,9 @@ public class CarteData : IComparable<CarteData>
 {
     public int valeur;
     public Symbole symbole;
+    public bool isFree = false;
+    public int goldValue = 0;
+    public int damage = 1;
 
     public CarteData(int valeur, Symbole symbole)
     {
@@ -36,16 +39,16 @@ public class Carte : MonoBehaviour
 {
     [SerializeField] private TMP_Text valeurText;
     [SerializeField] private TMP_Text symboleText;
+    [SerializeField] private TMP_Text damageText;
     [SerializeField] private Image frame;
     [SerializeField] private Image core;
+    [SerializeField] private Image dmgIcon;
     [SerializeField] private Transform deckTransform;
     [SerializeField] private Transform discardTransform;
     [SerializeField] private GameObject CarteVerso;
     private CarteData _carteData;
     public bool isSelected = false;
     public bool isKept = false;
-    public bool isFree = false;
-    public int goldValue = 0;
     private Vector3 _destinationPosition;
     private Quaternion _destinationRotation;
     private Vector3 _originPosition;
@@ -60,8 +63,10 @@ public class Carte : MonoBehaviour
     {
         frame.enabled = false;
         core.enabled = false;
+        dmgIcon.enabled = false;
         symboleText.enabled = false;
         valeurText.enabled = false;
+        damageText.enabled = false;
     }
 
     public void Select()
@@ -130,8 +135,10 @@ public class Carte : MonoBehaviour
 
         frame.enabled = true;
         core.enabled = true;
+        dmgIcon.enabled = true;
         symboleText.enabled = true;
         valeurText.enabled = true;
+        damageText.enabled = true;
         Destroy(carteVerso);
     }
 
@@ -140,8 +147,10 @@ public class Carte : MonoBehaviour
         GameObject carteVerso = Instantiate(CarteVerso, transform);
         frame.enabled = false;
         core.enabled = false;
+        dmgIcon.enabled = false;
         symboleText.enabled = false;
         valeurText.enabled = false;
+        damageText.enabled = false;
         for (float i = 0; i < 11; i++)
         {
             carteVerso.transform.position = Vector2.Lerp(transform.position, discardTransform.position, i / 10);
@@ -197,6 +206,7 @@ public class Carte : MonoBehaviour
                 break;
         }
 
+        damageText.text = carteData.damage.ToString();
         valeurText.text = valeurString;
         symboleText.text = symboleString;
     }

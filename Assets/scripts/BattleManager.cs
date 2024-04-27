@@ -16,25 +16,27 @@ public class BattleManager : MonoBehaviour
     private List<CarteData> _enemyDiscard;
     [FormerlySerializedAs("comboCards")] public List<Carte> comboCards;
     [SerializeField] private TMP_Text messageBox;
+    [SerializeField] private TMP_Text combatBox;
     private bool _isDisplayingMsg = false;
+    private bool _isDisplayingCombatMsg = false;
     private Vector3[] _enemyHandPositions;
     [SerializeField] private Transform comboCardsTransform;
     [SerializeField] private Player player;
 
     private enum Combos
     {
-        HighCard, 
-        Pair, 
-        TwoPairs, 
+        HighCard,
+        Pair,
+        TwoPairs,
         ThreeOfAKind,
-        Straight, 
-        Flush, 
-        FullHouse, 
-        FourOfAKind, 
-        StraightFlush, 
+        Straight,
+        Flush,
+        FullHouse,
+        FourOfAKind,
+        StraightFlush,
         RoyalFlush
     }
-
+    
     private Combos _activeCombo;
 
 
@@ -77,6 +79,7 @@ public class BattleManager : MonoBehaviour
         {
             enemyHand[i].transform.position = _enemyHandPositions[i];
         }
+
         Deal();
         StartCoroutine(nameof(InitializePlayerTurn));
     }
@@ -175,22 +178,25 @@ public class BattleManager : MonoBehaviour
         comboCards = new List<Carte>();
 
         //straight
-        int[] tempValues = new int[5] 
-            {enemyHand[0].Data.valeur, enemyHand[1].Data.valeur, enemyHand[2].Data.valeur, enemyHand[3].Data.valeur, enemyHand[4].Data.valeur};
+        int[] tempValues = new int[5]
+        {
+            enemyHand[0].Data.valeur, enemyHand[1].Data.valeur, enemyHand[2].Data.valeur, enemyHand[3].Data.valeur,
+            enemyHand[4].Data.valeur
+        };
         Array.Sort(tempValues);
         if ((tempValues[0] == tempValues[1] - 1 &&
-            tempValues[0] == tempValues[2] - 2 &&
-            tempValues[0] == tempValues[3] - 3 &&
-            tempValues[0] == tempValues[4] - 4) || 
+             tempValues[0] == tempValues[2] - 2 &&
+             tempValues[0] == tempValues[3] - 3 &&
+             tempValues[0] == tempValues[4] - 4) ||
             (tempValues[0] == 1 &&
              tempValues[1] == 10 &&
-             tempValues[2] == 11 && 
-             tempValues[3] == 12 && 
+             tempValues[2] == 11 &&
+             tempValues[3] == 12 &&
              tempValues[4] == 13))
         {
             foreach (var carte in enemyHand)
             {
-                if (!comboCards.Contains(carte))comboCards.Add(carte);
+                if (!comboCards.Contains(carte)) comboCards.Add(carte);
             }
         }
 
@@ -203,10 +209,10 @@ public class BattleManager : MonoBehaviour
         {
             foreach (var carte in enemyHand)
             {
-                if (!comboCards.Contains(carte))comboCards.Add(carte);
+                if (!comboCards.Contains(carte)) comboCards.Add(carte);
             }
         }
-        
+
         //pairs, triples, four of a kinds, full house
         for (int i = 0; i < 5; i++)
         {
@@ -243,7 +249,7 @@ public class BattleManager : MonoBehaviour
 
             comboCards.Add(enemyHand[indexHighest]);
         }
-        
+
         //Set ActiveCombo
         switch (comboCards.Count)
         {
@@ -267,16 +273,17 @@ public class BattleManager : MonoBehaviour
                 {
                     _activeCombo = Combos.TwoPairs;
                 }
+
                 break;
             case 5:
                 if ((tempValues[0] == tempValues[1] - 1 &&
                      tempValues[0] == tempValues[2] - 2 &&
                      tempValues[0] == tempValues[3] - 3 &&
-                     tempValues[0] == tempValues[4] - 4) || 
+                     tempValues[0] == tempValues[4] - 4) ||
                     (tempValues[0] == 1 &&
                      tempValues[1] == 10 &&
-                     tempValues[2] == 11 && 
-                     tempValues[3] == 12 && 
+                     tempValues[2] == 11 &&
+                     tempValues[3] == 12 &&
                      tempValues[4] == 13))
                 {
                     if (enemyHand[0].Data.symbole == enemyHand[1].Data.symbole &&
@@ -379,8 +386,102 @@ public class BattleManager : MonoBehaviour
         }
 
         //resolve Round Winner
-        //DisplayMessage($"Player: {}");
-        
+        DisplayMessage(false,$"Player: {player.activeCombo} vs Enemy: {_activeCombo}");
+        string winner = "";
+        int dmg = 0;
+        if ((int)player.activeCombo > (int)_activeCombo)
+        {
+            winner = "Player";
+        }
+        else if ((int)player.activeCombo < (int)_activeCombo)
+        {
+            winner = "Enemy";
+        }
+        else
+        {
+            if (_activeCombo == Combos.HighCard || _activeCombo == Combos.Pair || _activeCombo == Combos.ThreeOfAKind || _activeCombo == Combos.FourOfAKind)
+            {
+                if (player.comboCards[0].Data.valeur != comboCards[0].Data.valeur)
+                {
+                    if (player.comboCards[0].Data.valeur == 1 || player.comboCards[0].Data.valeur > comboCards[0].Data.valeur)
+                    {
+                        winner = "Player";
+                    }
+                    else
+                    {
+                        winner = "Enemy";
+                    }
+                }
+                else
+                {
+                    winner = "Draw";
+                }
+            }
+            else if (_activeCombo == Combos.TwoPairs || _activeCombo == Combos.Flush || _activeCombo == Combos.FullHouse)
+            {
+                int[] playerValues = new int[comboCards.Count];
+                int[] enemyValues = new int[comboCards.Count];
+                int playerScore = 0;
+                int enemyScore = 0;
+                
+                for (var i = 0; i < comboCards.Count; i++)
+                {
+                    if (player.comboCards[i].Data.valeur == 1) playerValues[i] = 14;
+                    else playerValues[i] = player.comboCards[i].Data.valeur;
+                    playerScore += playerValues[i];
+                    
+                    if (comboCards[i].Data.valeur == 1) enemyValues[i] = 14;
+                    else enemyValues[i] = comboCards[i].Data.valeur;
+                    enemyScore += enemyValues[i];
+                }
+
+                if (playerScore == enemyScore) winner = "Draw";
+                else winner = (playerScore > enemyScore) ? "Player" : "Enemy";
+            }
+            else if (_activeCombo == Combos.Straight || _activeCombo == Combos.StraightFlush)
+            {
+                int[] playerValues = new int[5] {player.comboCards[0].Data.valeur, player.comboCards[1].Data.valeur, player.comboCards[2].Data.valeur, player.comboCards[3].Data.valeur, player.comboCards[4].Data.valeur};
+                int[] enemyValues = new int[5] {comboCards[0].Data.valeur, comboCards[1].Data.valeur, comboCards[2].Data.valeur, comboCards[3].Data.valeur, comboCards[4].Data.valeur};
+                Array.Sort(playerValues);
+                Array.Sort(enemyValues);
+                int playerScore = 0;
+                int enemyScore = 0;
+
+                if (playerValues[0] == 1 && playerValues[4] == 13) playerValues[0] = 14;
+                if (enemyValues[0] == 1 && enemyValues[4] == 13) enemyValues[0] = 14;
+                for (var i = 0; i < 5; i++)
+                {
+                    playerScore += playerValues[i];
+                    enemyScore += enemyValues[i];
+                }
+
+                if (playerScore == enemyScore) winner = "Draw";
+                else winner = (playerScore > enemyScore) ? "Player" : "Enemy";
+            }
+            else if (_activeCombo == Combos.RoyalFlush)
+            {
+                winner = "Draw";
+            }
+        }
+
+        if (winner == "Enemy")
+        {
+            foreach (Carte comboCard in comboCards)
+            {
+                dmg += comboCard.Data.damage;
+            }
+        }
+        else if (winner == "Player")
+        {
+            foreach (Carte comboCard in player.comboCards)
+            {
+                dmg += comboCard.Data.damage;
+            }
+        }
+
+        if (winner != "Draw") DisplayMessage(true, $"{winner} wins, dealing {dmg} damage.");
+        else DisplayMessage(true, $"Round is a Draw");
+
         yield return new WaitForSeconds(5f);
 
         foreach (var comboCard in comboCards)
@@ -393,14 +494,23 @@ public class BattleManager : MonoBehaviour
         ResetTurn();
     }
 
-    public void DisplayMessage(string message)
+    public void DisplayMessage(bool isCombatBox, string message)
     {
-        if (_isDisplayingMsg) StopCoroutine("MessageFade");
-        messageBox.text = message;
-        StartCoroutine("MessageFade");
+        if (!isCombatBox)
+        {
+            if (_isDisplayingMsg) StopCoroutine(nameof(MessageBoxFade));
+            messageBox.text = message;
+            StartCoroutine(nameof(MessageBoxFade));
+        }
+        else
+        {
+            if (_isDisplayingCombatMsg) StopCoroutine(nameof(CombatBoxFade));
+            combatBox.text = message;
+            StartCoroutine(nameof(CombatBoxFade));
+        }
     }
 
-    public IEnumerator MessageFade()
+    public IEnumerator MessageBoxFade()
     {
         _isDisplayingMsg = true;
         for (float alpha = 100f; alpha >= 0; alpha--)
@@ -410,5 +520,17 @@ public class BattleManager : MonoBehaviour
         }
 
         _isDisplayingMsg = false;
+    }
+    
+    public IEnumerator CombatBoxFade()
+    {
+        _isDisplayingCombatMsg = true;
+        for (float alpha = 100f; alpha >= 0; alpha--)
+        {
+            combatBox.alpha = alpha / 100;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        _isDisplayingCombatMsg = false;
     }
 }
