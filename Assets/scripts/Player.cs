@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     private Vector3[] _mainPositions;
     private Quaternion[] _mainRotations;
     [SerializeField] private Transform comboCardsTransform;
+    [SerializeField] private TMP_Text drawButtonText;
     private int _drawCount = 0;
     public int maxDrawCount = 1;
     public enum Combos
@@ -97,8 +98,9 @@ public class Player : MonoBehaviour
         ShuffleDeck();
     }
 
-    public void KeepCards()
+    public bool KeepCards()
     {
+        bool canDraw;
         int keptCards = 0;
         foreach (var carte in main)
         {
@@ -121,16 +123,33 @@ public class Player : MonoBehaviour
             {
                 if (carte.isSelected) carte.Keep();
             }
+
+            canDraw = true;
         }
         else
         {
             battleManager.DisplayMessage(false, "You cannot keep that many cards");
+            canDraw = false;
         }
+
+        return canDraw;
     }
 
     public void SelectCard(Carte card)
     {
-        if (battleManager.IsPlayerTurn && _drawCount < maxDrawCount) card.Select();
+        if (battleManager.IsPlayerTurn && _drawCount < maxDrawCount)
+        {
+            card.Select();
+
+            int selectedCards = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                if (main[i].isSelected) selectedCards++;
+            }
+
+            if (selectedCards > 0) drawButtonText.text = "KEEP & DRAW";
+            else drawButtonText.text = "DRAW";
+        }
     }
 
 
@@ -157,6 +176,7 @@ public class Player : MonoBehaviour
             StartCoroutine("DrawCards", toDraw);
             StartCoroutine("DiscardCards", toDiscard);
             _drawCount++;
+            drawButtonText.text = "DRAW";
         }
         else
         {
@@ -166,7 +186,10 @@ public class Player : MonoBehaviour
     
     public void DrawButton()
     {
-        if (battleManager.IsPlayerTurn) Draw();
+        if (battleManager.IsPlayerTurn)
+        {
+            if(KeepCards()) Draw();
+        }
     }
 
     public IEnumerator DrawCards(List<Carte> cards)

@@ -1,7 +1,8 @@
 
-œcsharpsquid:S3776¤"RRefactor this method to reduce its Cognitive Complexity from 64 to the 15 allowed.(ò¨›E8½çÁëñ1J$58f17087-54df-4d10-98ca-1aeaa0cfd28d
-mcsharpsquid:S3903"%Move 'Player' into a named namespace.(¹Ç‹òøÿÿÿÿJ$81c6202a-af03-4b11-9016-cc9c9b740f93
-“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(òŠú¯şÿÿÿÿ8í¤Ã‚ò1J$4d9fa276-0d8d-4d5f-882b-d8a3a660c5b6
-csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(’Ÿ…8ì¹ö“ñ1J$b65a2463-6110-43da-a9c4-6da06b372141
-csharpsquid:S1104)"DMake this field 'private' and encapsulate it in a 'public' property.(ì…ƒö8˜ªğíñ1J$38616dc1-4a54-4b69-ae5f-d7713e4d99e8
-csharpsquid:S2292+"DMake this an auto-implemented property and remove its backing field.(ÑúÕ”8è¬ş‘ñ1J$4b0c32f6-40e8-4b74-8e83-9c3cf3a17dfc
+œcsharpsquid:S3776»"RRefactor this method to reduce its Cognitive Complexity from 64 to the 15 allowed.(ò¨›E8½çÁëñ1J$b60402c0-334e-4c7f-9573-07474de855e1
+mcsharpsquid:S3903"%Move 'Player' into a named namespace.(¹Ç‹òøÿÿÿÿJ$8b93920a-c97b-4935-a484-1a58974e416c
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(òŠú¯şÿÿÿÿ8í¤Ã‚ò1J$ed0c0449-4247-4c3b-b111-0a9302294de2
+csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(’Ÿ…8ì¹ö“ñ1J$24a21a53-00fd-4ae9-a029-40aaa901ed7c
+csharpsquid:S1104*"DMake this field 'private' and encapsulate it in a 'public' property.(ì…ƒö8˜ªğíñ1J$31d2f979-b5c9-4d3f-9a27-9b7e41e6ba84
+zcsharpsquid:S1066¿"/Merge this if statement with the enclosing one.(¤÷İ©8¼ıÖŠò1J$3760b592-b9df-4c38-a49b-0c2534139aa4
+csharpsquid:S2292,"DMake this an auto-implemented property and remove its backing field.(ÑúÕ”8è¬ş‘ñ1J$f64509e3-84b1-4d7c-b120-dff020ebf51e
