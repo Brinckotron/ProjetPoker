@@ -20,7 +20,8 @@ public class BattleManager : MonoBehaviour
     private List<CarteData> _enemyDiscard;
     private Dictionary<string, int> spriteMap;
     public List<Carte> comboCards;
-    [SerializeField] private Slider gameVolumeSlider;
+    [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private Slider effectsVolumeSlider;
     [SerializeField] private TMP_Text messageBox;
     [SerializeField] private TMP_Text combatBox;
     [SerializeField] private TMP_Text hpText;
@@ -42,6 +43,7 @@ public class BattleManager : MonoBehaviour
     private Vector3[] _enemyHandPositions;
     [SerializeField] private Transform comboCardsTransform;
     [SerializeField] private Player player;
+    [SerializeField] private GameObject loadScreen;
     [SerializeField] private GameObject menuScreen;
     [SerializeField] private GameObject endScreen;
     [SerializeField] private GameObject inventoryScreen;
@@ -82,7 +84,9 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-        gameVolumeSlider.value = GameManager.Instance.gameVolume;
+        loadScreen.SetActive(false);
+        musicVolumeSlider.value = GameManager.Instance.musicVolume;
+        effectsVolumeSlider.value = GameManager.Instance.effectsVolume;
         spriteMap = new Dictionary<string, int>()
         {
             { "Medkit", 0 },
@@ -90,7 +94,7 @@ public class BattleManager : MonoBehaviour
             { "NoThankYou", 2 },
             { "DamageBoost", 3 }
         };
-        musicBox.volume = GameManager.Instance.gameVolume;
+        musicBox.volume = GameManager.Instance.musicVolume;
         SetRelicIcons();
         isEnemyCardsRevealed = false;
         matchText.text = $"Match {GameManager.Instance.currentRound}/10";
@@ -752,11 +756,16 @@ public class BattleManager : MonoBehaviour
     public void EndCombatButton()
     {
         endScreen.SetActive(false);
-        if (GameManager.Instance.currentRound < 10 && _isCombatWon) SceneManager.LoadScene("Shop");
+        if (GameManager.Instance.currentRound < 10 && _isCombatWon)
+        {
+            loadScreen.SetActive(true);
+            SceneManager.LoadSceneAsync("Shop");
+        }
         else
         {
             GameManager.Instance.ResetGame();
-            SceneManager.LoadScene("MenuScene");
+            loadScreen.SetActive(true);
+            SceneManager.LoadSceneAsync("MenuScene");
         }
     }
 
@@ -825,10 +834,14 @@ public class BattleManager : MonoBehaviour
         GameManager.Instance.ResetGame();
         SceneManager.LoadScene("MenuScene");
     }
-    public void ChangeVolume()
+    public void ChangeMusicVolume()
     {
-        GameManager.Instance.gameVolume = gameVolumeSlider.value;
-        musicBox.volume = GameManager.Instance.gameVolume;
+        GameManager.Instance.musicVolume = musicVolumeSlider.value;
+        musicBox.volume = GameManager.Instance.musicVolume;
+    }
+    public void ChangeEffectsVolume()
+    {
+        GameManager.Instance.effectsVolume = effectsVolumeSlider.value;
     }
 
     private void UseNoThankYou()
@@ -889,7 +902,7 @@ public class BattleManager : MonoBehaviour
     public void PlaySound(AudioClip clip)
     {
         AudioSource audioSource = Instantiate(soundEffects, transform);
-        audioSource.volume = GameManager.Instance.gameVolume;
+        audioSource.volume = GameManager.Instance.effectsVolume;
         audioSource.clip = clip;
         audioSource.Play();
         Destroy(audioSource, 2f);

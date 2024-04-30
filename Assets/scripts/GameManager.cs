@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Slider = UnityEngine.UI.Slider;
 
@@ -34,7 +35,8 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public float gameVolume = 0.5f;
+    public float musicVolume = 0.5f;
+    public float effectsVolume = 0.5f;
     [SerializeField] private int coins = 20;
     public int currentRound = 0;
     public List<CarteData> specialCardsDeck;

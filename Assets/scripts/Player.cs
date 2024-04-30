@@ -292,7 +292,7 @@ public class Player : MonoBehaviour
     public void PlaySound(AudioClip clip)
     {
         AudioSource audioSource = Instantiate(soundEffects, transform);
-        audioSource.volume = GameManager.Instance.gameVolume;
+        audioSource.volume = GameManager.Instance.musicVolume;
         audioSource.clip = clip;
         audioSource.Play();
         Destroy(audioSource, 2F);
@@ -523,6 +523,7 @@ public class Player : MonoBehaviour
     {
         maxDrawCount = 1;
         _drawCount = 0;
+        drawButtonText.text = "DRAW";
         for (var i = 0; i < main.Length; i++)
         {
             main[i].transform.position = _mainPositions[i];

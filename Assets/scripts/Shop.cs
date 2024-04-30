@@ -24,7 +24,7 @@ public class Shop : MonoBehaviour
 
     private void Start()
     {
-        Camera.main.gameObject.GetComponent<AudioSource>().volume = GameManager.Instance.gameVolume;
+        Camera.main.gameObject.GetComponent<AudioSource>().volume = GameManager.Instance.musicVolume;
         spriteMap = new Dictionary<string, int>()
         {
             { "Medkit", 0 },
@@ -239,7 +239,7 @@ public class Shop : MonoBehaviour
     public void PlaySound(AudioClip clip)
     {
         AudioSource audioSource = Instantiate(audioPrefab, transform);
-        audioSource.volume = GameManager.Instance.gameVolume;
+        audioSource.volume = GameManager.Instance.effectsVolume;
         audioSource.clip = clip;
         audioSource.Play();
         Destroy(audioSource, 2f);

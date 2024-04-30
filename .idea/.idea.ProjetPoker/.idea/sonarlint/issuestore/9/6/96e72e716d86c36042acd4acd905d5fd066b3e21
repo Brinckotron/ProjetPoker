@@ -1,11 +1,13 @@
 
-mcsharpsquid:S3903	"*Move 'GameManager' into a named namespace.(¬øõJ$e2db5489-1588-4125-a7cf-74853b84b24f
-csharpsquid:S1104%"DMake this field 'private' and encapsulate it in a 'public' property.(É½ş‘8˜•›Ôò1J$c553a723-dbbe-44d8-9a11-542ce9a41aea
-“csharpsquid:S1104'"DMake this field 'private' and encapsulate it in a 'public' property.(Í¶ºÜüÿÿÿÿ8‹§ÏŞò1J$91ea78f9-7d1e-4947-bcf0-ee7d01bae37e
-“csharpsquid:S1104("DMake this field 'private' and encapsulate it in a 'public' property.(Ì–ç†ùÿÿÿÿ8‹§ÏŞò1J$32a97a5a-bf66-42f1-b333-fd4506f41d29
-csharpsquid:S1104)"DMake this field 'private' and encapsulate it in a 'public' property.(¬³ÊÉ8Ğüşò1J$03a625bc-a18a-4d5d-b76e-a41100dacb5d
-csharpsquid:S1104*"DMake this field 'private' and encapsulate it in a 'public' property.(Ôî¡Ò8ğŞ‘×ò1J$e7f41ae0-23fe-4b0c-bc1b-83e6c66f7f6d
-“csharpsquid:S1104+"DMake this field 'private' and encapsulate it in a 'public' property.(ëÕæ×ÿÿÿÿÿ8ñŞ‘×ò1J$5e8daefc-eb74-4425-86ca-1726c99ef594
-csharpsquid:S1104,"DMake this field 'private' and encapsulate it in a 'public' property.(¨¦¤¨8ñŞ‘×ò1J$faa306b9-dd96-4836-8e04-1a4a436f824e
-csharpsquid:S1104-"DMake this field 'private' and encapsulate it in a 'public' property.(ÏªÎ¶8¶å‚íò1J$3a100458-2523-4a78-852c-d3580f6034e3
-¤csharpsquid:S2696"UMake the enclosing instance method 'static' or remove this set on the 'static' field.(ı¼ƒ¡úÿÿÿÿ8àß¿ò1J$2b980f74-23dc-4733-9a81-c8a35ec7cc36
+mcsharpsquid:S3903
+"*Move 'GameManager' into a named namespace.(¬øõJ$fab8f8bc-0f84-4a5e-9d46-8f66391774b9
+“csharpsquid:S1104&"DMake this field 'private' and encapsulate it in a 'public' property.(ÄÙœØúÿÿÿÿ8˜•›Ôò1J$bde4437c-791b-40cc-b561-cd2eb876250b
+gcsharpsquid:S1104'"DMake this field 'private' and encapsulate it in a 'public' property.(äƒÍG8¨ÂÁ†ó1
+“csharpsquid:S1104)"DMake this field 'private' and encapsulate it in a 'public' property.(Í¶ºÜüÿÿÿÿ8‹§ÏŞò1J$ac806b43-7b24-46bc-aae8-60bcc99c2d35
+“csharpsquid:S1104*"DMake this field 'private' and encapsulate it in a 'public' property.(Ì–ç†ùÿÿÿÿ8‹§ÏŞò1J$5b2c5102-d236-4f0c-82d7-0b4e9914e7c5
+csharpsquid:S1104+"DMake this field 'private' and encapsulate it in a 'public' property.(¬³ÊÉ8Ğüşò1J$47f685e8-a890-4b04-8720-c888d5f08b6a
+csharpsquid:S1104,"DMake this field 'private' and encapsulate it in a 'public' property.(Ôî¡Ò8ğŞ‘×ò1J$18deb312-2cdc-43c4-8053-f21d18b6698e
+“csharpsquid:S1104-"DMake this field 'private' and encapsulate it in a 'public' property.(ëÕæ×ÿÿÿÿÿ8ñŞ‘×ò1J$c7fe60f8-87e7-4c43-bb65-1499f2bb1b7d
+csharpsquid:S1104."DMake this field 'private' and encapsulate it in a 'public' property.(¨¦¤¨8ñŞ‘×ò1J$1c135477-f4e4-4207-af5f-04bd4ff83a97
+csharpsquid:S1104/"DMake this field 'private' and encapsulate it in a 'public' property.(ÏªÎ¶8¶å‚íò1J$cabe5f4a-df09-4e70-a78e-9167c81416b9
+¤csharpsquid:S2696 "UMake the enclosing instance method 'static' or remove this set on the 'static' field.(ı¼ƒ¡úÿÿÿÿ8àß¿ò1J$192e9118-61dc-4da6-bdcf-55c00cdb3cba

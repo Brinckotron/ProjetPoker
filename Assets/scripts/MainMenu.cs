@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Slider = UnityEngine.UI.Slider;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private Slider gameVolumeSlider;
+    [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private Slider effectsVolumeSlider;
     
-    public void ChangeVolume()
+    public void ChangeEffectsVolume()
     {
-        GameManager.Instance.gameVolume = gameVolumeSlider.value;
-        Camera.main.gameObject.GetComponent<AudioSource>().volume = GameManager.Instance.gameVolume;
+        GameManager.Instance.effectsVolume = effectsVolumeSlider.value;
+    }
+    public void ChangeMusicVolume()
+    {
+        GameManager.Instance.musicVolume = musicVolumeSlider.value;
+        Camera.main.gameObject.GetComponent<AudioSource>().volume = GameManager.Instance.musicVolume;
     }
 
     public void NewGame()
