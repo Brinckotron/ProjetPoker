@@ -1085,6 +1085,7 @@ MonoBehaviour:
   gameVolume: 0.5
   coins: 30
   currentRound: 0
+  inventory: []
   hasMagicShades: 0
   hasGoldenCards: 0
   hasHeartOfSteel: 0

@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+using Slider = UnityEngine.UI.Slider;
 
 public class BattleManager : MonoBehaviour
 {
@@ -17,7 +18,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private Carte[] enemyHand;
     private List<CarteData> _enemyDeck;
     private List<CarteData> _enemyDiscard;
+    private Dictionary<string, int> spriteMap;
     public List<Carte> comboCards;
+    [SerializeField] private Slider gameVolumeSlider;
     [SerializeField] private TMP_Text messageBox;
     [SerializeField] private TMP_Text combatBox;
     [SerializeField] private TMP_Text hpText;
@@ -29,14 +32,22 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private AudioSource soundEffects;
     [SerializeField] private AudioClip winSound;
     [SerializeField] private AudioClip loseSound;
+    [SerializeField] private AudioClip healSound;
     private bool _isDisplayingMsg = false;
     private bool _isDisplayingCombatMsg = false;
     private bool _isCombatWon;
+    private bool _isDamageBoostOn;
+    private bool _isNoThankYou;
     public bool isEnemyCardsRevealed = false;
     private Vector3[] _enemyHandPositions;
     [SerializeField] private Transform comboCardsTransform;
     [SerializeField] private Player player;
+    [SerializeField] private GameObject menuScreen;
     [SerializeField] private GameObject endScreen;
+    [SerializeField] private GameObject inventoryScreen;
+    [SerializeField] private GameObject[] buttons;
+    [SerializeField] private Image[] inventorySlots;
+    [SerializeField] private Sprite[] consumableSprites;
     [SerializeField] private Sprite[] relicIcons;
     [SerializeField] private Image[] relicSlots;
 
@@ -71,6 +82,14 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
+        gameVolumeSlider.value = GameManager.Instance.gameVolume;
+        spriteMap = new Dictionary<string, int>()
+        {
+            { "Medkit", 0 },
+            { "Mulligan", 1 },
+            { "NoThankYou", 2 },
+            { "DamageBoost", 3 }
+        };
         musicBox.volume = GameManager.Instance.gameVolume;
         SetRelicIcons();
         isEnemyCardsRevealed = false;
@@ -629,14 +648,17 @@ public class BattleManager : MonoBehaviour
 
         if (winner != "Draw")
         {
-            string damage = (GameManager.Instance.hasPrecisionScope && winner == "Player" && player.comboCards.Count >= 3)? (dmg * 2).ToString() : dmg.ToString();
-            DisplayMessage(true, $"{winner} wins, dealing {damage} damage.");
+            int playerDmg = dmg;
+            if (GameManager.Instance.hasPrecisionScope && player.comboCards.Count >= 3) playerDmg += 2;
+            if (_isDamageBoostOn) playerDmg += player.comboCards.Count;
+            DisplayMessage(true, $"{winner} wins, dealing {playerDmg.ToString()} damage.");
             yield return new WaitForSeconds(1f);
             if (winner == "Player")
             {
-                if (GameManager.Instance.hasPrecisionScope && player.comboCards.Count >= 3) dmg *= 2;
-                LooseHealth(dmg);
+                
+                LooseHealth(playerDmg);
                 PlaySound(winSound);
+                _isDamageBoostOn = false;
             }
             else
             {
@@ -731,7 +753,137 @@ public class BattleManager : MonoBehaviour
     {
         endScreen.SetActive(false);
         if (GameManager.Instance.currentRound < 10 && _isCombatWon) SceneManager.LoadScene("Shop");
-        else SceneManager.LoadScene("MenuScene");
+        else
+        {
+            GameManager.Instance.ResetGame();
+            SceneManager.LoadScene("MenuScene");
+        }
+    }
+
+    public void UseConsumable(int buttonIndex)
+    {
+        switch (GameManager.Instance.inventory[buttonIndex])
+        {
+            case "Medkit":
+                player.GainHealth(5);
+                PlaySound(healSound);
+                DisplayMessage(false, "Used Medkit to heal 5 HP");
+                break;
+            case "Mulligan":
+                player.maxDrawCount++;
+                DisplayMessage(false, "Used Mulligan to draw again");
+                break;
+            case "NoThankYou":
+                UseNoThankYou();
+                DisplayMessage(false, "Used No, Thank You. Select which card to redraw");
+                break;
+            case "DamageBoost":
+                _isDamageBoostOn = true;
+                DisplayMessage(false, "Used Damage Boost. Your next winning combination will deal 1 extra damage per card");
+                break;
+        }
+        GameManager.Instance.inventory.RemoveAt(buttonIndex);
+        CloseInventory();
+    }
+    public void OpenInventory()
+    {
+        if (_isPlayerTurn)
+        {
+            inventoryScreen.SetActive(true);
+            for (var i = 0; i < GameManager.Instance.inventory.Count; i++)
+            {
+                inventorySlots[i].sprite = consumableSprites[spriteMap[GameManager.Instance.inventory[i]]];
+                inventorySlots[i].color = Color.white;
+                inventorySlots[i].gameObject.GetComponent<Button>().enabled = true;
+            }
+            for (int i = GameManager.Instance.inventory.Count; i < 10; i++)
+            {
+                inventorySlots[i].sprite = null;
+                inventorySlots[i].color = Color.clear;
+                inventorySlots[i].gameObject.GetComponent<Button>().enabled = false;
+            }
+        }
+    }
+
+    public void CloseInventory()
+    {
+        inventoryScreen.SetActive(false);
+    }
+
+    public void OpenMenu()
+    {
+        menuScreen.SetActive(true);
+    }
+    public void CloseMenu()
+    {
+        menuScreen.SetActive(false);
+    }
+
+    public void AbandonRun()
+    {
+        CloseMenu();
+        GameManager.Instance.ResetGame();
+        SceneManager.LoadScene("MenuScene");
+    }
+    public void ChangeVolume()
+    {
+        GameManager.Instance.gameVolume = gameVolumeSlider.value;
+        musicBox.volume = GameManager.Instance.gameVolume;
+    }
+
+    private void UseNoThankYou()
+    {
+        foreach (var carte in player.main)
+        {
+            carte.Enabled(false);
+        }
+        foreach (var button in buttons)
+        {
+            button.SetActive(false);
+        }
+        _isNoThankYou = true;
+        isEnemyCardsRevealed = true;
+        if (flippedCards != null)
+        {
+            foreach (var flippedCard in flippedCards)
+            {
+                Destroy(flippedCard);
+            }
+        }
+        foreach (var card in enemyHand)
+        {
+            card.gameObject.GetComponent<Button>().enabled = true;
+        }
+        
+    }
+
+    public void NoThankYouCard(int cardIndex)
+    {
+        if (_isNoThankYou)
+        {
+            Discard(enemyHand[cardIndex]);
+            List<Carte> toDraw = new List<Carte>();
+            toDraw.Add(enemyHand[cardIndex]);
+            StartCoroutine(DrawCards(toDraw));
+            EndNoThankYou();
+        }
+    }
+
+    private void EndNoThankYou()
+    {
+        foreach (var carte in player.main)
+        {
+            carte.Enabled(true);
+        }
+        foreach (var button in buttons)
+        {
+            button.SetActive(true);
+        }
+        foreach (var card in enemyHand)
+        {
+            card.gameObject.GetComponent<Button>().enabled = false;
+        }
+        _isNoThankYou = false;
     }
 
     public void PlaySound(AudioClip clip)

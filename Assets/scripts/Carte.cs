@@ -77,13 +77,7 @@ public class Carte : MonoBehaviour
 
     private void Awake()
     {
-        frame.enabled = false;
-        core.enabled = false;
-        dmgIcon.enabled = false;
-        specialEffectImg.enabled = false;
-        symboleText.enabled = false;
-        valeurText.enabled = false;
-        damageText.enabled = false;
+        Enabled(false);
     }
 
     public void Select()
@@ -152,26 +146,14 @@ public class Carte : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
-        frame.enabled = true;
-        core.enabled = true;
-        dmgIcon.enabled = true;
-        specialEffectImg.enabled = true;
-        symboleText.enabled = true;
-        valeurText.enabled = true;
-        damageText.enabled = true;
+        Enabled(true);
         Destroy(carteVerso);
     }
 
     public IEnumerator DiscardAnimation()
     {
         GameObject carteVerso = Instantiate(CarteVerso, transform);
-        frame.enabled = false;
-        core.enabled = false;
-        dmgIcon.enabled = false;
-        specialEffectImg.enabled = false;
-        symboleText.enabled = false;
-        valeurText.enabled = false;
-        damageText.enabled = false;
+        Enabled(false);
         for (float i = 0; i < 11; i++)
         {
             carteVerso.transform.position = Vector2.Lerp(transform.position, discardTransform.position, i / 10);
@@ -180,6 +162,17 @@ public class Carte : MonoBehaviour
         }
 
         Destroy(carteVerso);
+    }
+
+    public void Enabled(bool isEnabled)
+    {
+        frame.enabled = isEnabled;
+        core.enabled = isEnabled;
+        dmgIcon.enabled = isEnabled;
+        specialEffectImg.enabled = isEnabled;
+        symboleText.enabled = isEnabled;
+        valeurText.enabled = isEnabled;
+        damageText.enabled = isEnabled;
     }
 
     internal void SetData(CarteData carteData)

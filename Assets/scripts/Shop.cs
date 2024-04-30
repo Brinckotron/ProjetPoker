@@ -5,30 +5,45 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-
     [SerializeField] private TMP_Text textBox;
     [SerializeField] private TMP_Text goldCounter;
     [SerializeField] private GameObject loadScreen;
+    [SerializeField] private GameObject inventoryScreen;
+    [SerializeField] private Image[] inventorySlots;
+    [SerializeField] private Sprite[] consumableSprites;
     [SerializeField] private AudioClip coinSounds;
     [SerializeField] private AudioSource audioPrefab;
     [SerializeField] private Animator loadCardAnim;
     [SerializeField] private GameObject[] relicOwnedTexts;
+    private Dictionary<string, int> spriteMap;
     private bool[] hasBoughtRelics;
 
     private void Start()
     {
-        hasBoughtRelics = new bool[4] { 
-            GameManager.Instance.hasMagicShades, 
-            GameManager.Instance.hasGoldenCards, 
-            GameManager.Instance.hasHeartOfSteel, 
-            GameManager.Instance.hasPrecisionScope };
+        Camera.main.gameObject.GetComponent<AudioSource>().volume = GameManager.Instance.gameVolume;
+        spriteMap = new Dictionary<string, int>()
+        {
+            { "Medkit", 0 },
+            { "Mulligan", 1 },
+            { "NoThankYou", 2 },
+            { "DamageBoost", 3 }
+        };
+        hasBoughtRelics = new bool[4]
+        {
+            GameManager.Instance.hasMagicShades,
+            GameManager.Instance.hasGoldenCards,
+            GameManager.Instance.hasHeartOfSteel,
+            GameManager.Instance.hasPrecisionScope
+        };
         for (var i = 0; i < hasBoughtRelics.Length; i++)
         {
             if (hasBoughtRelics[i]) relicOwnedTexts[i].SetActive(true);
         }
+
         loadScreen.SetActive(false);
         GameManager.OnChange += DisplayGold;
         DisplayGold();
@@ -64,7 +79,8 @@ public class Shop : MonoBehaviour
             {
                 GameManager.Instance.specialCardsDeck.Add(new CarteData(cardType));
                 GameManager.Instance.Coins -= price;
-                textBox.text = $"Bought {cardType} Card for {price.ToString()} coins. {GameManager.Instance.specialCardsDeck.Count.ToString()}/52";
+                textBox.text =
+                    $"Bought {cardType} Card for {price.ToString()} coins. {GameManager.Instance.specialCardsDeck.Count.ToString()}/52";
                 PlaySound(coinSounds);
             }
             else
@@ -76,9 +92,8 @@ public class Shop : MonoBehaviour
         {
             textBox.text = "You have the maximum number of special Cards.";
         }
-        
     }
-    
+
     public void BuyRelic(int intRelic)
     {
         int price = 0;
@@ -94,7 +109,7 @@ public class Shop : MonoBehaviour
                 price = 150;
                 break;
             case 3:
-                price = 250;
+                price = 200;
                 break;
         }
 
@@ -122,8 +137,9 @@ public class Shop : MonoBehaviour
                         relicName = "Precision Scope";
                         break;
                 }
+
                 GameManager.Instance.Coins -= price;
-                textBox.text = $"Bought {relicName} Card for {price.ToString()} coins.";
+                textBox.text = $"Bought {relicName} for {price.ToString()} coins.";
                 hasBoughtRelics[intRelic] = true;
                 relicOwnedTexts[intRelic].SetActive(true);
                 PlaySound(coinSounds);
@@ -136,7 +152,70 @@ public class Shop : MonoBehaviour
         else
         {
             textBox.text = "You already own that relic.";
-        }   
+        }
+    }
+
+    public void BuyConsumable(int intConsumable)
+    {
+        int price = 10;
+        if (GameManager.Instance.inventory.Count < 10)
+        {
+            if (GameManager.Instance.Coins >= price)
+            {
+                string consumableName = "";
+                switch (intConsumable)
+                {
+                    case 0:
+                        consumableName = "Medkit";
+                        GameManager.Instance.inventory.Add("Medkit");
+                        break;
+                    case 1:
+                        GameManager.Instance.inventory.Add("Mulligan");
+                        consumableName = "Mulligan";
+                        break;
+                    case 2:
+                        GameManager.Instance.inventory.Add("NoThankYou");
+                        consumableName = "No, Thank You";
+                        break;
+                    case 3:
+                        GameManager.Instance.inventory.Add("DamageBoost");
+                        consumableName = "Damage Boost";
+                        break;
+                }
+
+                textBox.text = $"Bought {consumableName} for {price.ToString()} coins.";
+                GameManager.Instance.Coins -= price;
+                PlaySound(coinSounds);
+            }
+            else
+            {
+                textBox.text = "You don't have enough Coins for that.";
+            }
+        }
+        else
+        {
+            textBox.text = "The inventory is full.";
+        }
+    }
+
+    public void OpenInventory()
+    {
+        inventoryScreen.SetActive(true);
+        for (var i = 0; i < GameManager.Instance.inventory.Count; i++)
+        {
+            inventorySlots[i].sprite = consumableSprites[spriteMap[GameManager.Instance.inventory[i]]];
+            inventorySlots[i].color = Color.white;
+        }
+        for (int i = GameManager.Instance.inventory.Count; i < 10; i++)
+        {
+            inventorySlots[i].sprite = null;
+            inventorySlots[i].color = Color.clear;
+        }
+    }
+
+    public void CloseInventory()
+    {
+        inventoryScreen.SetActive(false);
     }
 
     private void DisplayGold()
@@ -148,7 +227,7 @@ public class Shop : MonoBehaviour
     {
         GameManager.OnChange -= DisplayGold;
     }
-    
+
     public void ToBattle()
     {
         GameManager.Instance.currentRound++;
@@ -156,7 +235,7 @@ public class Shop : MonoBehaviour
         loadCardAnim.Play("Loading");
         SceneManager.LoadSceneAsync("CombatScene");
     }
-    
+
     public void PlaySound(AudioClip clip)
     {
         AudioSource audioSource = Instantiate(audioPrefab, transform);

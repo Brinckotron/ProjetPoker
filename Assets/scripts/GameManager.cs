@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int coins = 20;
     public int currentRound = 0;
     public List<CarteData> specialCardsDeck;
+    public List<string> inventory;
     public bool hasMagicShades;
     public bool hasGoldenCards;
     public bool hasHeartOfSteel;
@@ -59,5 +60,18 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         specialCardsDeck = new List<CarteData>();
+        inventory = new List<string>();
+    }
+
+    public void ResetGame()
+    {
+        coins = 30;
+        currentRound = 0;
+        inventory.Clear();
+        specialCardsDeck.Clear();
+        hasMagicShades = false;
+        hasGoldenCards = false;
+        hasHeartOfSteel = false;
+        hasPrecisionScope = false;
     }
 }

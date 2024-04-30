@@ -1,10 +1,11 @@
 
-œcsharpsquid:S3776ÿ"RRefactor this method to reduce its Cognitive Complexity from 64 to the 15 allowed.(ò¨›E8‘«¢·ò1J$8704fa96-58f3-4608-84df-6ae246916c8e
-lcsharpsquid:S2971ú""Use 'Count' property here instead.(§ì¡8Šö–²ò1J$bfb3c28a-fd37-46da-aeb9-f7120fd37d22
-mcsharpsquid:S3903"%Move 'Player' into a named namespace.(¹Ç‹òøÿÿÿÿJ$b1f7475a-ce89-4a73-bb7e-ca86e15171bf
-“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(¥Ş®ñıÿÿÿÿ8¸™ÑÃò1J$48d94470-b7df-402f-b816-b16e451b6908
-“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ÂÅ„ıÿÿÿÿ8€’ƒØò1J$bf8dae03-b689-4f30-935a-b70733c7e93a
-“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(òŠú¯şÿÿÿÿ8í¤Ã‚ò1J$b9c594d4-2656-42ec-a2fa-a4d87800442f
-csharpsquid:S1104 "DMake this field 'private' and encapsulate it in a 'public' property.(’Ÿ…8ì¹ö“ñ1J$652afe7a-16b3-4ccb-8e47-517f1f379ec2
-csharpsquid:S11041"DMake this field 'private' and encapsulate it in a 'public' property.(ì…ƒö8˜ªğíñ1J$6bda6db6-a231-4498-bdaa-52a739891b3b
-zcsharpsquid:S1066Ï"/Merge this if statement with the enclosing one.(¤÷İ©8ûÏ¥˜ò1J$5045ebe5-bb5f-499b-aabe-824a4eeafa31
+œcsharpsquid:S3776ÿ"RRefactor this method to reduce its Cognitive Complexity from 64 to the 15 allowed.(ò¨›E8‘«¢·ò1J$521459a4-24c6-4968-81a8-9140b842a2be
+lcsharpsquid:S2971ú""Use 'Count' property here instead.(§ì¡8Šö–²ò1J$a08fff58-baac-46d4-826a-945ef4039a02
+mcsharpsquid:S3903"%Move 'Player' into a named namespace.(¹Ç‹òøÿÿÿÿJ$bc140cc0-5c72-48a2-b730-d51cff144045
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(¥Ş®ñıÿÿÿÿ8¸™ÑÃò1J$996ac98e-1203-414c-8e99-f9c176fc84f4
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ÂÅ„ıÿÿÿÿ8€’ƒØò1J$9cb3851d-17f5-407c-abad-a05929467178
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(òŠú¯şÿÿÿÿ8í¤Ã‚ò1J$a154bc47-d19c-48c0-a1e2-ef7a2db129f7
+hcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(Ñ¢¥—8ŒÈÉó1
+csharpsquid:S1104 "DMake this field 'private' and encapsulate it in a 'public' property.(’Ÿ…8ì¹ö“ñ1J$0828ab82-d9d0-486f-9c5f-38d21b0ec756
+csharpsquid:S11041"DMake this field 'private' and encapsulate it in a 'public' property.(ì…ƒö8˜ªğíñ1J$91c3be6c-80dd-4372-a5aa-6d8c9dbfa278
+zcsharpsquid:S1066Ï"/Merge this if statement with the enclosing one.(¤÷İ©8ûÏ¥˜ò1J$00c8456c-c347-461d-b15a-6f6935757426

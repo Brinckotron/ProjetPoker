@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     private List<CarteData> _playerDiscard;
     private List<CarteData> _playerSpecialCards;
     public List<Carte> comboCards;
-    [SerializeField] private Carte[] main;
+    public Carte[] main;
     private Vector3[] _mainPositions;
     private Quaternion[] _mainRotations;
     [SerializeField] private Transform comboCardsTransform;
@@ -521,6 +521,7 @@ public class Player : MonoBehaviour
 
     public void ResetTurn()
     {
+        maxDrawCount = 1;
         _drawCount = 0;
         for (var i = 0; i < main.Length; i++)
         {

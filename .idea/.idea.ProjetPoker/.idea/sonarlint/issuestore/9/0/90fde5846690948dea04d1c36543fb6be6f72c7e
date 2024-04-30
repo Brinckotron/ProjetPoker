@@ -1,8 +1,8 @@
 
-¢csharpsquid:S3776˜"RRefactor this method to reduce its Cognitive Complexity from 66 to the 15 allowed.(«Ê®ñûÿÿÿÿ8Î†öÙò1J$b07452ea-87ce-446b-81d2-b8d6d688fc43
-£csharpsquid:S3776±"SRefactor this method to reduce its Cognitive Complexity from 125 to the 15 allowed.(¯ÒÎÀúÿÿÿÿ8Ï†öÙò1J$98971d12-4574-46c7-970c-22eaaa5643b1
-tcsharpsquid:S3903",Move 'BattleManager' into a named namespace.(ŸÿóãýÿÿÿÿJ$73a4ee50-ca2c-4ad1-bca4-2620912d08ac
-“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(òŠú¯þÿÿÿÿ8âí ìñ1J$7aeda534-8f6c-495e-9212-ba2e0d3b437f
-“csharpsquid:S1104#"DMake this field 'private' and encapsulate it in a 'public' property.(ÅªÐöýÿÿÿÿ8ÄóæÅò1J$7319e0b9-80b5-41b2-ae32-633c7c58225b
-“csharpsquid:S2292<"DMake this an auto-implemented property and remove its backing field.(ïŠ‘¬üÿÿÿÿ8Ñ†öÙò1J$e8702dfc-4593-4cd7-8f91-8a2f7556927e
-Žcsharpsquid:S2292B"DMake this an auto-implemented property and remove its backing field.(òúÿ½8Ñ†öÙò1J$f814ba44-8e9c-4a0a-9cb2-25e3a21b7c94
+¢csharpsquid:S3776«"RRefactor this method to reduce its Cognitive Complexity from 66 to the 15 allowed.(«Ê®ñûÿÿÿÿ8Î†öÙò1J$e1998909-7dbe-4eec-956c-d2b6bb0e4a38
+£csharpsquid:S3776Ä"SRefactor this method to reduce its Cognitive Complexity from 123 to the 15 allowed.(¯ÒÎÀúÿÿÿÿ8Ï†öÙò1J$4aca7fcd-c59f-475d-8de7-82dc65f97031
+tcsharpsquid:S3903",Move 'BattleManager' into a named namespace.(ŸÿóãýÿÿÿÿJ$bd13d90d-12c4-41ae-8f72-ef95a0de0e88
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(òŠú¯þÿÿÿÿ8âí ìñ1J$d11fe5d0-ea62-4a2d-883d-a1d01e8276f6
+“csharpsquid:S1104)"DMake this field 'private' and encapsulate it in a 'public' property.(ÅªÐöýÿÿÿÿ8ÄóæÅò1J$b39328ab-1fdf-4b99-a482-d4c9fafc8b88
+“csharpsquid:S2292G"DMake this an auto-implemented property and remove its backing field.(ïŠ‘¬üÿÿÿÿ8Ñ†öÙò1J$4158e6f3-b0a3-465a-bf8e-09e2f44e873d
+Žcsharpsquid:S2292M"DMake this an auto-implemented property and remove its backing field.(òúÿ½8Ñ†öÙò1J$525a1464-98b3-4544-aca2-94a583501f48
