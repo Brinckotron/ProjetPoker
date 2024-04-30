@@ -1,13 +1,14 @@
 
-csharpsquid:S1210"\When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=.(¬ÍŠ~J$de2f17bd-7ec2-4c98-a7c3-87cb3a59569d
+csharpsquid:S1210"\When implementing IComparable<T>, you should also override Equals, ==, !=, <, <=, >, and >=.(¬ÍŠ~J$3255fee1-08af-4402-be22-c5b1c7be0980
+vcsharpsquid:S3903"'Move 'CardType' into a named namespace.(çÍÂúÿÿÿÿ8ÖŞŞ—ò1J$bc125cc3-10c7-419f-b1ec-55395b7e1d2c
 ncsharpsquid:S3903
-"&Move 'Symbole' into a named namespace.(–¤ñşÿÿÿÿJ$7102477e-9aa3-4b7e-bda5-9a9c514f4d59
-jcsharpsquid:S3903"(Move 'CarteData' into a named namespace.(¬ÍŠ~J$5d3cef3f-adbe-4d54-a4a0-65b7c0a84122
-gcsharpsquid:S3903&"$Move 'Carte' into a named namespace.(—“î‚J$d4c7afd7-fd53-4329-9d53-893137301136
-†csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(áşÃ-J$546c8eb4-002e-4dc9-a532-7f8a05d8f679
-Œcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(·¥åˆùÿÿÿÿJ$75ad46ad-e952-40ce-8225-5654b28993f4
-“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(†ªòüÿÿÿÿ8¿–±‚ò1J$92f94699-439b-40d2-917a-dc746d616c2e
-“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ã¨…øÿÿÿÿ8¿–±‚ò1J$3b539fda-8ff0-4899-a5d5-892f05a9bb22
-“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(Ûê‹Ûûÿÿÿÿ8¿–±‚ò1J$5c48781e-8e7a-4914-87c2-9921798dc0e4
-csharpsquid:S11042"DMake this field 'private' and encapsulate it in a 'public' property.(È˜ˆğ8È¤Šğğ1J$c9496b30-20e8-4d4c-8504-ebd5f7f7a609
-“csharpsquid:S11043"DMake this field 'private' and encapsulate it in a 'public' property.(Ü”»¤ÿÿÿÿÿ8ÆÚ”ğğ1J$659d0db1-96bd-4d0f-abc5-fd48734486f5
+"&Move 'Symbole' into a named namespace.(–¤ñşÿÿÿÿJ$76f05aa2-53dc-4086-b3ac-ed228173a335
+gcsharpsquid:S39033"$Move 'Carte' into a named namespace.(—“î‚J$76e2ebe6-9d61-4440-8820-bbe277a4b9d9
+jcsharpsquid:S3903"(Move 'CarteData' into a named namespace.(¬ÍŠ~J$1026c3f9-ba43-434f-a0fc-24c09a349ed5
+“csharpsquid:S1104@"DMake this field 'private' and encapsulate it in a 'public' property.(·åÀıÿÿÿÿ8ã‡±ò1J$0b4faabb-1acb-475b-8fb2-a6509dec5341
+csharpsquid:S1104B"DMake this field 'private' and encapsulate it in a 'public' property.(È˜ˆğ8“¨Š—ò1J$71f9d97f-5f62-49cd-a1f5-f82fad2d6dcb
+“csharpsquid:S1104C"DMake this field 'private' and encapsulate it in a 'public' property.(Ü”»¤ÿÿÿÿÿ8Çåœ±ò1J$fbbace6b-8ddb-4794-ac2a-5d6599023079
+†csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(áşÃ-J$c9f930a2-0e15-47c0-bd64-bdefd77298f3
+Œcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(·¥åˆùÿÿÿÿJ$c2e32023-20ca-4e0d-819b-abdcc4ac7898
+csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(àÖÿ—8ÈÀæ—ò1J$7af3894d-5502-4597-a340-4173a334ff9d
+“csharpsquid:S1104 "DMake this field 'private' and encapsulate it in a 'public' property.(Ûê‹Ûûÿÿÿÿ8¿–±‚ò1J$b0f88820-4eca-4f48-9417-86350cc0856a

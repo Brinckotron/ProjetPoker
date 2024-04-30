@@ -76,6 +76,81 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3359032325725811644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 729450150608423969}
+  - component: {fileID: 6336667817796512159}
+  - component: {fileID: 6140936376673442907}
+  m_Layer: 5
+  m_Name: SpecialEffectImg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &729450150608423969
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3359032325725811644}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5899972860468718011}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -75, y: 65}
+  m_SizeDelta: {x: 50, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6336667817796512159
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3359032325725811644}
+  m_CullTransparentMesh: 1
+--- !u!114 &6140936376673442907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3359032325725811644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &5174725034466054754
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,6 +508,7 @@ GameObject:
   - component: {fileID: 7535719617278584084}
   - component: {fileID: 9147338776602005339}
   - component: {fileID: 5338439380848804324}
+  - component: {fileID: 5500656523880154873}
   m_Layer: 5
   m_Name: Carte
   m_TagString: Untagged
@@ -456,6 +532,7 @@ RectTransform:
   - {fileID: 2347357934735462448}
   - {fileID: 5119574488885228542}
   - {fileID: 1156572897339836091}
+  - {fileID: 729450150608423969}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -519,9 +596,15 @@ MonoBehaviour:
   frame: {fileID: 4642154220397327404}
   core: {fileID: 6513129587870414625}
   dmgIcon: {fileID: 2993556144751970343}
+  specialEffectImg: {fileID: 6140936376673442907}
+  specialEffectIcons:
+  - {fileID: 21300000, guid: 6168924a66d3e074bbc9e7f2b8df9df5, type: 3}
+  - {fileID: 21300000, guid: 9714557ce7b573540bc33287778efd39, type: 3}
+  - {fileID: 21300000, guid: 82a9590b42414d34d920dff5f86a492c, type: 3}
   deckTransform: {fileID: 0}
   discardTransform: {fileID: 0}
   CarteVerso: {fileID: 7310186784985839140, guid: 7f34ab4ea74c5f844b1938b8334c0d7f, type: 3}
+  anim: {fileID: 5500656523880154873}
   isSelected: 0
   isKept: 0
 --- !u!61 &9147338776602005339
@@ -625,6 +708,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!95 &5500656523880154873
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310186784985839140}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 337d7062b8725cb48b8e62a958b907eb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7505814954019481818
 GameObject:
   m_ObjectHideFlags: 0

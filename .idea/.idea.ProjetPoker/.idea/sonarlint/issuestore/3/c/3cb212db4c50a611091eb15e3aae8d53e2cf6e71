@@ -1,8 +1,10 @@
 
-œcsharpsquid:S3776»"RRefactor this method to reduce its Cognitive Complexity from 64 to the 15 allowed.(ò¨›E8½çÁëñ1J$b60402c0-334e-4c7f-9573-07474de855e1
-mcsharpsquid:S3903"%Move 'Player' into a named namespace.(¹Ç‹òøÿÿÿÿJ$8b93920a-c97b-4935-a484-1a58974e416c
-“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(òŠú¯şÿÿÿÿ8í¤Ã‚ò1J$ed0c0449-4247-4c3b-b111-0a9302294de2
-csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(’Ÿ…8ì¹ö“ñ1J$24a21a53-00fd-4ae9-a029-40aaa901ed7c
-csharpsquid:S1104*"DMake this field 'private' and encapsulate it in a 'public' property.(ì…ƒö8˜ªğíñ1J$31d2f979-b5c9-4d3f-9a27-9b7e41e6ba84
-zcsharpsquid:S1066¿"/Merge this if statement with the enclosing one.(¤÷İ©8¼ıÖŠò1J$3760b592-b9df-4c38-a49b-0c2534139aa4
-csharpsquid:S2292,"DMake this an auto-implemented property and remove its backing field.(ÑúÕ”8è¬ş‘ñ1J$f64509e3-84b1-4d7c-b120-dff020ebf51e
+œcsharpsquid:S3776ÿ"RRefactor this method to reduce its Cognitive Complexity from 64 to the 15 allowed.(ò¨›E8‘«¢·ò1J$8704fa96-58f3-4608-84df-6ae246916c8e
+lcsharpsquid:S2971ú""Use 'Count' property here instead.(§ì¡8Šö–²ò1J$bfb3c28a-fd37-46da-aeb9-f7120fd37d22
+mcsharpsquid:S3903"%Move 'Player' into a named namespace.(¹Ç‹òøÿÿÿÿJ$b1f7475a-ce89-4a73-bb7e-ca86e15171bf
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(¥Ş®ñıÿÿÿÿ8¸™ÑÃò1J$48d94470-b7df-402f-b816-b16e451b6908
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ÂÅ„ıÿÿÿÿ8€’ƒØò1J$bf8dae03-b689-4f30-935a-b70733c7e93a
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(òŠú¯şÿÿÿÿ8í¤Ã‚ò1J$b9c594d4-2656-42ec-a2fa-a4d87800442f
+csharpsquid:S1104 "DMake this field 'private' and encapsulate it in a 'public' property.(’Ÿ…8ì¹ö“ñ1J$652afe7a-16b3-4ccb-8e47-517f1f379ec2
+csharpsquid:S11041"DMake this field 'private' and encapsulate it in a 'public' property.(ì…ƒö8˜ªğíñ1J$6bda6db6-a231-4498-bdaa-52a739891b3b
+zcsharpsquid:S1066Ï"/Merge this if statement with the enclosing one.(¤÷İ©8ûÏ¥˜ò1J$5045ebe5-bb5f-499b-aabe-824a4eeafa31

@@ -10,47 +10,53 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    private int _gold;
-    private int _hp;
+    public int hp;
+    public int maxHp = 20;
     [SerializeField] private BattleManager battleManager;
     [SerializeField] private AudioSource soundEffects;
     [SerializeField] private AudioClip coinSounds;
+    [SerializeField] private AudioClip healSound;
     private List<CarteData> _playerDeck;
     private List<CarteData> _playerDiscard;
+    private List<CarteData> _playerSpecialCards;
     public List<Carte> comboCards;
     [SerializeField] private Carte[] main;
     private Vector3[] _mainPositions;
     private Quaternion[] _mainRotations;
     [SerializeField] private Transform comboCardsTransform;
     [SerializeField] private TMP_Text drawButtonText;
+    [SerializeField] private GameObject healthIcon;
+    [SerializeField] private TMP_Text hpText;
+    [SerializeField] private TMP_Text coinsText;
     private int _drawCount = 0;
     public int maxDrawCount = 1;
+    private int maxKeepCount = 2;
+
     public enum Combos
     {
-        HighCard, 
-        Pair, 
-        TwoPairs, 
+        HighCard,
+        Pair,
+        TwoPairs,
         ThreeOfAKind,
-        Straight, 
-        Flush, 
-        FullHouse, 
-        FourOfAKind, 
-        StraightFlush, 
+        Straight,
+        Flush,
+        FullHouse,
+        FourOfAKind,
+        StraightFlush,
         RoyalFlush
     }
 
     [SerializeField] public Combos activeCombo;
 
-    public int Gold
-    {
-        get => _gold;
-        set => _gold = value;
-    }
-
     private void Awake()
     {
-        BuildDeck();
+        if (GameManager.Instance.hasGoldenCards) maxKeepCount = 3;
+        if (GameManager.Instance.hasHeartOfSteel) maxHp = 30;
+        coinsText.text = $"Coins: {GameManager.Instance.Coins}";
+        GainHealth(maxHp);
+        BuildBaseDeck();
         ShuffleDeck();
+        InsertSpecialCards();
         Deal();
         _playerDiscard = new List<CarteData>();
         _mainPositions = new Vector3[5];
@@ -62,7 +68,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void BuildDeck()
+    public void BuildBaseDeck()
     {
         _playerDeck = new List<CarteData>();
         for (int i = 1; i <= 13; i++)
@@ -87,6 +93,15 @@ public class Player : MonoBehaviour
         _playerDeck = temp;
     }
 
+    public void InsertSpecialCards()
+    {
+        for (var i = 0; i < GameManager.Instance.specialCardsDeck.Count; i++)
+        {
+            _playerDeck[i].cardType = GameManager.Instance.specialCardsDeck[i].cardType;
+        }
+        ShuffleDeck();
+    }
+
     public void ReshuffleDeck()
     {
         for (int i = 0; i < _playerDiscard.Count; i++)
@@ -104,20 +119,20 @@ public class Player : MonoBehaviour
         int keptCards = 0;
         foreach (var carte in main)
         {
-            if (carte.isKept && !carte.Data.isFree)
+            if (carte.isKept && carte.Data.cardType != CardType.Free)
                 keptCards++;
         }
 
         List<Carte> selectedCards = new List<Carte>();
         foreach (var carte in main)
         {
-            if (carte.isSelected && !carte.Data.isFree)
+            if (carte.isSelected && carte.Data.cardType != CardType.Free)
             {
                 selectedCards.Add(carte);
             }
         }
 
-        if ((selectedCards.Count + keptCards) <= 2)
+        if ((selectedCards.Count + keptCards) <= maxKeepCount)
         {
             foreach (var carte in main)
             {
@@ -173,8 +188,9 @@ public class Player : MonoBehaviour
                 }
             }
 
-            StartCoroutine("DrawCards", toDraw);
             StartCoroutine("DiscardCards", toDiscard);
+            StartCoroutine("DrawCards", toDraw);
+            StartCoroutine(ApplySpecialCardEffects(toDraw));
             _drawCount++;
             drawButtonText.text = "DRAW";
         }
@@ -202,6 +218,7 @@ public class Player : MonoBehaviour
             cards[i].SetData(_playerDeck[0]);
             _playerDeck.RemoveAt(0);
             yield return new WaitForSeconds(0.1f);
+            
         }
     }
 
@@ -217,6 +234,8 @@ public class Player : MonoBehaviour
     public void Deal()
     {
         StartCoroutine("DrawCards", main.ToList());
+        
+        StartCoroutine(ApplySpecialCardEffects(main.ToList()));
     }
 
     public void Discard(Carte card)
@@ -225,13 +244,59 @@ public class Player : MonoBehaviour
         card.Discard();
     }
 
-    public void GainGold(int goldAmount)
+    public IEnumerator ApplySpecialCardEffects(List<Carte> cards)
     {
-        Gold += goldAmount;
-        soundEffects.clip = coinSounds;
-        soundEffects.Play();
+        yield return new WaitForSeconds(1.5f);
+        for (int i = 0; i < cards.Count(); i++)
+        {
+            if (cards[i].Data.cardType == CardType.Heal || cards[i].Data.cardType == CardType.Bank)
+            {
+                if (cards[i].Data.cardType == CardType.Heal)
+                {
+                    GainHealth(1);
+                    PlaySound(healSound);
+                }
+
+                if (cards[i].Data.cardType == CardType.Bank)
+                {
+                    GainCoins(2);
+                    PlaySound(coinSounds);
+                }
+                cards[i].anim.Play("Bump");
+                yield return new WaitForSeconds(0.5f);
+                cards[i].anim.Play("Idle");
+            }
+        }
     }
 
+    public void GainCoins(int coinsAmount)
+    {
+        GameManager.Instance.Coins += coinsAmount;
+        coinsText.text = $"Coins: {GameManager.Instance.Coins}";
+    }
+
+    public void GainHealth(int healthAmount)
+    {
+        hp = Mathf.Clamp(hp + healthAmount, 0, maxHp);
+        hpText.text = hp.ToString();
+        healthIcon.GetComponent<Animator>().Play("Heal");
+    }
+
+    public void LooseHealth(int damage)
+    {
+        hp = Mathf.Clamp(hp - damage, 0, maxHp);
+        hpText.text = hp.ToString();
+        healthIcon.GetComponent<Animator>().Play("Hurt");
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        AudioSource audioSource = Instantiate(soundEffects, transform);
+        audioSource.volume = GameManager.Instance.gameVolume;
+        audioSource.clip = clip;
+        audioSource.Play();
+        Destroy(audioSource, 2F);
+    }
     public void EndTurn()
     {
         if (battleManager.IsPlayerTurn)
@@ -301,13 +366,16 @@ public class Player : MonoBehaviour
             comboCards[i].MoveTo(comboCardsPositions[i], comboCardsTransform.rotation);
         }
 
-        yield return new WaitForSeconds(5f);
+        float waitTime = 5f;
+        if (GameManager.Instance.currentRound >= 8) waitTime = 8f;
+        yield return new WaitForSeconds(waitTime);
 
         foreach (var comboCard in comboCards)
         {
             Discard(comboCard);
             yield return new WaitForSeconds(0.1f);
         }
+
         yield return new WaitForSeconds(1f);
         ResetTurn();
     }
@@ -466,6 +534,6 @@ public class Player : MonoBehaviour
             if (main[i].isKept) main[i].Unkeep();
         }
 
-        Deal();
+        if (hp > 0 && battleManager.EnemyHP > 0) Deal();
     }
 }

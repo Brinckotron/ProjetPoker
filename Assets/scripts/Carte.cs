@@ -15,18 +15,31 @@ public enum Symbole
     Trefle
 }
 
+public enum CardType
+{
+    Normal,
+    Free, 
+    Bank, 
+    Heal,
+    Damage
+}
+
 public class CarteData : IComparable<CarteData>
 {
     public int valeur;
     public Symbole symbole;
-    public bool isFree = false;
-    public int goldValue = 0;
+    public CardType cardType = CardType.Normal;
     public int damage = 1;
 
     public CarteData(int valeur, Symbole symbole)
     {
         this.valeur = valeur;
         this.symbole = symbole;
+    }
+
+    public CarteData(CardType cardType)
+    {
+        this.cardType = cardType;
     }
 
     public int CompareTo(CarteData other)
@@ -43,9 +56,12 @@ public class Carte : MonoBehaviour
     [SerializeField] private Image frame;
     [SerializeField] private Image core;
     [SerializeField] private Image dmgIcon;
+    [SerializeField] private Image specialEffectImg;
+    [SerializeField] private Sprite[] specialEffectIcons;
     [SerializeField] private Transform deckTransform;
     [SerializeField] private Transform discardTransform;
     [SerializeField] private GameObject CarteVerso;
+    public Animator anim;
     private CarteData _carteData;
     public bool isSelected = false;
     public bool isKept = false;
@@ -64,6 +80,7 @@ public class Carte : MonoBehaviour
         frame.enabled = false;
         core.enabled = false;
         dmgIcon.enabled = false;
+        specialEffectImg.enabled = false;
         symboleText.enabled = false;
         valeurText.enabled = false;
         damageText.enabled = false;
@@ -110,6 +127,8 @@ public class Carte : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
     }
+    
+    
 
 
     public void Draw()
@@ -136,6 +155,7 @@ public class Carte : MonoBehaviour
         frame.enabled = true;
         core.enabled = true;
         dmgIcon.enabled = true;
+        specialEffectImg.enabled = true;
         symboleText.enabled = true;
         valeurText.enabled = true;
         damageText.enabled = true;
@@ -148,6 +168,7 @@ public class Carte : MonoBehaviour
         frame.enabled = false;
         core.enabled = false;
         dmgIcon.enabled = false;
+        specialEffectImg.enabled = false;
         symboleText.enabled = false;
         valeurText.enabled = false;
         damageText.enabled = false;
@@ -203,6 +224,35 @@ public class Carte : MonoBehaviour
                 symboleString = "\u2663";
                 symboleText.color = Color.black;
                 valeurText.color = Color.black;
+                break;
+        }
+        switch (carteData.cardType)
+        {
+            case CardType.Normal:
+                specialEffectImg.sprite = null;
+                specialEffectImg.color = Color.clear;
+                damageText.color = Color.white;
+                break;
+            case CardType.Bank:
+                specialEffectImg.sprite = specialEffectIcons[0];
+                specialEffectImg.color = Color.white;
+                damageText.color = Color.white;
+                break;
+            case CardType.Free:
+                specialEffectImg.sprite = specialEffectIcons[1];
+                specialEffectImg.color = Color.white;
+                damageText.color = Color.white;
+                break;
+            case CardType.Heal:
+                specialEffectImg.sprite = specialEffectIcons[2];
+                specialEffectImg.color = Color.white;
+                damageText.color = Color.white;
+                break;
+            case CardType.Damage:
+                carteData.damage = 2;
+                specialEffectImg.sprite = null;
+                specialEffectImg.color = Color.clear;
+                damageText.color = Color.yellow;
                 break;
         }
 

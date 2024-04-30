@@ -9,3 +9,7 @@ G
 Assets/scripts/Carte.cs,f\9\f9bd17ae3e75e1d7d9f1cf337e16bc74cb66f3cd
 O
 Assets/scripts/BattleManager.cs,9\0\90fde5846690948dea04d1c36543fb6be6f72c7e
+M
+Assets/scripts/GameManager.cs,9\6\96e72e716d86c36042acd4acd905d5fd066b3e21
+J
+Assets/scripts/MainMenu.cs,7\a\7afe1c4d409b4eb27ded20d84cc9904376613d6c

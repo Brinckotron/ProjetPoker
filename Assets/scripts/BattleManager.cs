@@ -4,24 +4,41 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class BattleManager : MonoBehaviour
 {
     private bool _isPlayerTurn;
     private int _enemyHP;
+    private int _enemyMaxHP = 20;
     [SerializeField] private Carte[] enemyHand;
     private List<CarteData> _enemyDeck;
     private List<CarteData> _enemyDiscard;
-    [FormerlySerializedAs("comboCards")] public List<Carte> comboCards;
+    public List<Carte> comboCards;
     [SerializeField] private TMP_Text messageBox;
     [SerializeField] private TMP_Text combatBox;
+    [SerializeField] private TMP_Text hpText;
+    [SerializeField] private TMP_Text matchText;
+    [SerializeField] private GameObject healthIcon;
+    [SerializeField] private GameObject flippedCardPrefab;
+    private GameObject[] flippedCards;
+    [SerializeField] private AudioSource musicBox;
+    [SerializeField] private AudioSource soundEffects;
+    [SerializeField] private AudioClip winSound;
+    [SerializeField] private AudioClip loseSound;
     private bool _isDisplayingMsg = false;
     private bool _isDisplayingCombatMsg = false;
+    private bool _isCombatWon;
+    public bool isEnemyCardsRevealed = false;
     private Vector3[] _enemyHandPositions;
     [SerializeField] private Transform comboCardsTransform;
     [SerializeField] private Player player;
+    [SerializeField] private GameObject endScreen;
+    [SerializeField] private Sprite[] relicIcons;
+    [SerializeField] private Image[] relicSlots;
 
     private enum Combos
     {
@@ -36,7 +53,7 @@ public class BattleManager : MonoBehaviour
         StraightFlush,
         RoyalFlush
     }
-    
+
     private Combos _activeCombo;
 
 
@@ -54,8 +71,15 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
+        musicBox.volume = GameManager.Instance.gameVolume;
+        SetRelicIcons();
+        isEnemyCardsRevealed = false;
+        matchText.text = $"Match {GameManager.Instance.currentRound}/10";
+        SetMaxHP();
         BuildDeck();
         ShuffleDeck();
+        if(GameManager.Instance.currentRound >= 5) AddDamageCards();
+        GainHealth(_enemyMaxHP);
         _enemyDiscard = new List<CarteData>();
         Deal();
         _enemyHandPositions = new Vector3[5];
@@ -64,7 +88,36 @@ public class BattleManager : MonoBehaviour
             _enemyHandPositions[i] = enemyHand[i].transform.position;
         }
 
+        DisplayMessage(false, $"Match {GameManager.Instance.currentRound.ToString()}/10");
         StartCoroutine(nameof(InitializePlayerTurn));
+    }
+
+    public void SetRelicIcons()
+    {
+        List<Sprite> iconList = new List<Sprite>();
+        if (GameManager.Instance.hasMagicShades) iconList.Add(relicIcons[0]);
+        if (GameManager.Instance.hasGoldenCards) iconList.Add(relicIcons[1]);
+        if (GameManager.Instance.hasHeartOfSteel) iconList.Add(relicIcons[2]);
+        if (GameManager.Instance.hasPrecisionScope) iconList.Add(relicIcons[3]);
+
+        for (var i = 0; i < iconList.Count; i++)
+        {
+            relicSlots[i].sprite = iconList[i];
+            relicSlots[i].color = Color.white;
+        }
+    }
+
+    private void SetMaxHP()
+    {
+        switch (GameManager.Instance.currentRound)
+        {
+            case < 10:
+                _enemyMaxHP = 5 + (GameManager.Instance.currentRound * 5);
+                break;
+            case 10:
+                _enemyMaxHP = 60;
+                break;
+        }
     }
 
     public IEnumerator InitializePlayerTurn()
@@ -75,13 +128,23 @@ public class BattleManager : MonoBehaviour
 
     public void ResetTurn()
     {
-        for (var i = 0; i < enemyHand.Length; i++)
+        if (_enemyHP > 0 && player.hp > 0)
         {
-            enemyHand[i].transform.position = _enemyHandPositions[i];
-        }
+            for (var i = 0; i < enemyHand.Length; i++)
+            {
+                enemyHand[i].transform.position = _enemyHandPositions[i];
+            }
 
-        Deal();
-        StartCoroutine(nameof(InitializePlayerTurn));
+            isEnemyCardsRevealed = false;
+            Deal();
+            StartCoroutine(nameof(InitializePlayerTurn));
+        }
+        else
+        {
+            if (_enemyHP == 0) _isCombatWon = true;
+            else _isCombatWon = false;
+            EndCombat();
+        }
     }
 
     public void BuildDeck()
@@ -94,6 +157,21 @@ public class BattleManager : MonoBehaviour
             _enemyDeck.Add(new CarteData(i, Symbole.Coeur));
             _enemyDeck.Add(new CarteData(i, Symbole.Carreau));
         }
+
+        if (GameManager.Instance.currentRound < 3)
+        {
+            _enemyDeck.RemoveRange(0,4);
+            if (GameManager.Instance.currentRound == 1) _enemyDeck.RemoveRange(_enemyDeck.Count-4,4);
+        }
+    }
+
+    public void AddDamageCards()
+    {
+        for (var i = 0; i < GameManager.Instance.currentRound; i++)
+        {
+            _enemyDeck[i].cardType = CardType.Damage;
+        }
+        ShuffleDeck();
     }
 
     public void ShuffleDeck()
@@ -156,6 +234,18 @@ public class BattleManager : MonoBehaviour
             _enemyDeck.RemoveAt(0);
             yield return new WaitForSeconds(0.1f);
         }
+
+        if (player.hp <= (player.maxHp/2) && GameManager.Instance.hasMagicShades) isEnemyCardsRevealed = true;
+        if (!isEnemyCardsRevealed)
+        {
+            yield return new WaitForSeconds(0.5f - (cards.Count * 0.1f));
+            flippedCards = new GameObject[cards.Count];
+            for (var i = 0; i < cards.Count; i++)
+            {
+                flippedCards[i] = Instantiate(flippedCardPrefab, cards[i].transform);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
     }
 
     public IEnumerator DiscardCards(List<Carte> cards)
@@ -171,6 +261,20 @@ public class BattleManager : MonoBehaviour
     {
         _enemyDiscard.Add(card.Data);
         card.Discard();
+    }
+
+    public void GainHealth(int healthAmount)
+    {
+        _enemyHP = Mathf.Clamp(_enemyHP + healthAmount, 0, _enemyMaxHP);
+        hpText.text = _enemyHP.ToString();
+        healthIcon.GetComponent<Animator>().Play("Heal");
+    }
+
+    public void LooseHealth(int damage)
+    {
+        _enemyHP = Mathf.Clamp(_enemyHP - damage, 0, _enemyMaxHP);
+        hpText.text = _enemyHP.ToString();
+        healthIcon.GetComponent<Animator>().Play("Hurt");
     }
 
     public void CheckForCombos()
@@ -328,6 +432,38 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator ResolveTurn()
     {
+        if (flippedCards != null)
+        {
+            foreach (var flippedCard in flippedCards)
+            {
+                Destroy(flippedCard);
+            }
+        }
+        isEnemyCardsRevealed = true;
+        yield return new WaitForSeconds(2f);
+        if (GameManager.Instance.currentRound >= 7)
+        {
+            CheckForCombos();
+            if (_activeCombo is Combos.HighCard or Combos.Pair or Combos.ThreeOfAKind)
+            {
+                List<Carte> toDraw = new List<Carte>();
+                for (var i = 0; i < enemyHand.Length; i++)
+                {
+                    if (!comboCards.Contains(enemyHand[i]))
+                    {
+                        toDraw.Add(enemyHand[i]);
+                        yield return new WaitForSeconds(0.1f);
+                        if (GameManager.Instance.currentRound == 7 && toDraw.Count == 1) break;
+                        if (GameManager.Instance.currentRound == 8 && toDraw.Count == 2) break;
+                        if (GameManager.Instance.currentRound == 9 && toDraw.Count == 3) break;
+                        if (GameManager.Instance.currentRound == 10 && toDraw.Count == 4) break;
+                    }
+                }
+                StartCoroutine(DiscardCards(toDraw));
+                StartCoroutine(DrawCards(toDraw));
+                yield return new WaitForSeconds(1.5f);
+            }
+        }
         CheckForCombos();
         List<Vector3> comboCardsPositions = new List<Vector3>();
         foreach (var carte in enemyHand)
@@ -386,7 +522,7 @@ public class BattleManager : MonoBehaviour
         }
 
         //resolve Round Winner
-        DisplayMessage(false,$"Player: {player.activeCombo} vs Enemy: {_activeCombo}");
+        DisplayMessage(false, $"Player: {player.activeCombo} vs Enemy: {_activeCombo}");
         string winner = "";
         int dmg = 0;
         if ((int)player.activeCombo > (int)_activeCombo)
@@ -399,11 +535,14 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            if (_activeCombo == Combos.HighCard || _activeCombo == Combos.Pair || _activeCombo == Combos.ThreeOfAKind || _activeCombo == Combos.FourOfAKind)
+            if (_activeCombo == Combos.HighCard || _activeCombo == Combos.Pair || _activeCombo == Combos.ThreeOfAKind ||
+                _activeCombo == Combos.FourOfAKind)
             {
                 if (player.comboCards[0].Data.valeur != comboCards[0].Data.valeur)
                 {
-                    if (player.comboCards[0].Data.valeur == 1 || player.comboCards[0].Data.valeur > comboCards[0].Data.valeur)
+                    if (player.comboCards[0].Data.valeur == 1 ||
+                        (player.comboCards[0].Data.valeur > comboCards[0].Data.valeur &&
+                         comboCards[0].Data.valeur != 1))
                     {
                         winner = "Player";
                     }
@@ -417,19 +556,20 @@ public class BattleManager : MonoBehaviour
                     winner = "Draw";
                 }
             }
-            else if (_activeCombo == Combos.TwoPairs || _activeCombo == Combos.Flush || _activeCombo == Combos.FullHouse)
+            else if (_activeCombo == Combos.TwoPairs || _activeCombo == Combos.Flush ||
+                     _activeCombo == Combos.FullHouse)
             {
                 int[] playerValues = new int[comboCards.Count];
                 int[] enemyValues = new int[comboCards.Count];
                 int playerScore = 0;
                 int enemyScore = 0;
-                
+
                 for (var i = 0; i < comboCards.Count; i++)
                 {
                     if (player.comboCards[i].Data.valeur == 1) playerValues[i] = 14;
                     else playerValues[i] = player.comboCards[i].Data.valeur;
                     playerScore += playerValues[i];
-                    
+
                     if (comboCards[i].Data.valeur == 1) enemyValues[i] = 14;
                     else enemyValues[i] = comboCards[i].Data.valeur;
                     enemyScore += enemyValues[i];
@@ -440,8 +580,16 @@ public class BattleManager : MonoBehaviour
             }
             else if (_activeCombo == Combos.Straight || _activeCombo == Combos.StraightFlush)
             {
-                int[] playerValues = new int[5] {player.comboCards[0].Data.valeur, player.comboCards[1].Data.valeur, player.comboCards[2].Data.valeur, player.comboCards[3].Data.valeur, player.comboCards[4].Data.valeur};
-                int[] enemyValues = new int[5] {comboCards[0].Data.valeur, comboCards[1].Data.valeur, comboCards[2].Data.valeur, comboCards[3].Data.valeur, comboCards[4].Data.valeur};
+                int[] playerValues = new int[5]
+                {
+                    player.comboCards[0].Data.valeur, player.comboCards[1].Data.valeur,
+                    player.comboCards[2].Data.valeur, player.comboCards[3].Data.valeur, player.comboCards[4].Data.valeur
+                };
+                int[] enemyValues = new int[5]
+                {
+                    comboCards[0].Data.valeur, comboCards[1].Data.valeur, comboCards[2].Data.valeur,
+                    comboCards[3].Data.valeur, comboCards[4].Data.valeur
+                };
                 Array.Sort(playerValues);
                 Array.Sort(enemyValues);
                 int playerScore = 0;
@@ -479,10 +627,28 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        if (winner != "Draw") DisplayMessage(true, $"{winner} wins, dealing {dmg} damage.");
+        if (winner != "Draw")
+        {
+            string damage = (GameManager.Instance.hasPrecisionScope && winner == "Player" && player.comboCards.Count >= 3)? (dmg * 2).ToString() : dmg.ToString();
+            DisplayMessage(true, $"{winner} wins, dealing {damage} damage.");
+            yield return new WaitForSeconds(1f);
+            if (winner == "Player")
+            {
+                if (GameManager.Instance.hasPrecisionScope && player.comboCards.Count >= 3) dmg *= 2;
+                LooseHealth(dmg);
+                PlaySound(winSound);
+            }
+            else
+            {
+                player.LooseHealth(dmg);
+                PlaySound(loseSound);
+            }
+        }
         else DisplayMessage(true, $"Round is a Draw");
 
-        yield return new WaitForSeconds(5f);
+        float waitTime = 2f;
+        if (GameManager.Instance.currentRound >= 8) waitTime = 3f;
+        yield return new WaitForSeconds(waitTime);
 
         foreach (var comboCard in comboCards)
         {
@@ -521,7 +687,7 @@ public class BattleManager : MonoBehaviour
 
         _isDisplayingMsg = false;
     }
-    
+
     public IEnumerator CombatBoxFade()
     {
         _isDisplayingCombatMsg = true;
@@ -532,5 +698,48 @@ public class BattleManager : MonoBehaviour
         }
 
         _isDisplayingCombatMsg = false;
+    }
+
+    private void EndCombat()
+    {
+        endScreen.SetActive(true);
+        if (_isCombatWon)
+        {
+            if (GameManager.Instance.currentRound < 10)
+            {
+                int goldEarned = (GameManager.Instance.currentRound * 20) + player.hp;
+                endScreen.GetComponentInChildren<TMP_Text>().text =
+                    $"You won the match!You have earned...\n Match #{GameManager.Instance.currentRound.ToString()} x 20\n+ Health left: {player.hp.ToString()}\n = {goldEarned} coins!";
+                player.GainCoins(goldEarned);
+                endScreen.GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "Continue to Shop";
+            }
+            else
+            {
+                endScreen.GetComponentInChildren<TMP_Text>().text = "You finished the Game!";
+                endScreen.GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text =
+                    "Return to Main Menu";
+            }
+        }
+        else
+        {
+            endScreen.GetComponentInChildren<TMP_Text>().text = "You lost the match!";
+            endScreen.GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "Return to Main Menu";
+        }
+    }
+
+    public void EndCombatButton()
+    {
+        endScreen.SetActive(false);
+        if (GameManager.Instance.currentRound < 10 && _isCombatWon) SceneManager.LoadScene("Shop");
+        else SceneManager.LoadScene("MenuScene");
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        AudioSource audioSource = Instantiate(soundEffects, transform);
+        audioSource.volume = GameManager.Instance.gameVolume;
+        audioSource.clip = clip;
+        audioSource.Play();
+        Destroy(audioSource, 2f);
     }
 }

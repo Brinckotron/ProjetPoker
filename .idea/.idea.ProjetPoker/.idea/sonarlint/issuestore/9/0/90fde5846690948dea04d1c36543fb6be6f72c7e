@@ -1,8 +1,8 @@
 
-¢csharpsquid:S3776°"RRefactor this method to reduce its Cognitive Complexity from 66 to the 15 allowed.(«Ê®ñûÿÿÿÿ8É· íñ1J$2d9d9566-0bb7-477b-93e2-15df11c7bd71
-¢csharpsquid:S3776É"RRefactor this method to reduce its Cognitive Complexity from 75 to the 15 allowed.(¯ÒÎÀúÿÿÿÿ8‹Şò‚ò1J$6db3b38b-c711-4cc4-81bd-4429e7247ac3
-tcsharpsquid:S3903
-",Move 'BattleManager' into a named namespace.(ŸÿóãıÿÿÿÿJ$ab02fcdc-afb8-4cc9-98e5-9d1c9b9b4ee4
-csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(¸Î½\8âí ìñ1J$92d16f7e-2f02-481d-92b1-d770fe0145b8
-“csharpsquid:S2292+"DMake this an auto-implemented property and remove its backing field.(ïŠ‘¬üÿÿÿÿ8Ë· íñ1J$a0a207ef-4857-44e2-a0b9-86bfa226a5c4
-csharpsquid:S22921"DMake this an auto-implemented property and remove its backing field.(òúÿ½8Ë· íñ1J$f2a71071-b3fb-479b-b7d4-fe4727dcff1b
+¢csharpsquid:S3776˜"RRefactor this method to reduce its Cognitive Complexity from 66 to the 15 allowed.(«Ê®ñûÿÿÿÿ8Î†öÙò1J$b07452ea-87ce-446b-81d2-b8d6d688fc43
+£csharpsquid:S3776±"SRefactor this method to reduce its Cognitive Complexity from 125 to the 15 allowed.(¯ÒÎÀúÿÿÿÿ8Ï†öÙò1J$98971d12-4574-46c7-970c-22eaaa5643b1
+tcsharpsquid:S3903",Move 'BattleManager' into a named namespace.(ŸÿóãıÿÿÿÿJ$73a4ee50-ca2c-4ad1-bca4-2620912d08ac
+“csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(òŠú¯şÿÿÿÿ8âí ìñ1J$7aeda534-8f6c-495e-9212-ba2e0d3b437f
+“csharpsquid:S1104#"DMake this field 'private' and encapsulate it in a 'public' property.(ÅªĞöıÿÿÿÿ8ÄóæÅò1J$7319e0b9-80b5-41b2-ae32-633c7c58225b
+“csharpsquid:S2292<"DMake this an auto-implemented property and remove its backing field.(ïŠ‘¬üÿÿÿÿ8Ñ†öÙò1J$e8702dfc-4593-4cd7-8f91-8a2f7556927e
+csharpsquid:S2292B"DMake this an auto-implemented property and remove its backing field.(òúÿ½8Ñ†öÙò1J$f814ba44-8e9c-4a0a-9cb2-25e3a21b7c94
