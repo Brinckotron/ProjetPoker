@@ -292,7 +292,7 @@ public class Player : MonoBehaviour
     public void PlaySound(AudioClip clip)
     {
         AudioSource audioSource = Instantiate(soundEffects, transform);
-        audioSource.volume = GameManager.Instance.musicVolume;
+        audioSource.volume = GameManager.Instance.effectsVolume;
         audioSource.clip = clip;
         audioSource.Play();
         Destroy(audioSource, 2F);
