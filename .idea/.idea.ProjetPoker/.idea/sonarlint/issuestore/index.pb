@@ -13,5 +13,3 @@ M
 Assets/scripts/GameManager.cs,9\6\96e72e716d86c36042acd4acd905d5fd066b3e21
 J
 Assets/scripts/MainMenu.cs,7\a\7afe1c4d409b4eb27ded20d84cc9904376613d6c
-M
-Assets/scripts/IConsumable.cs,d\5\d55efa4f5a4247670fb666d86c3231176f67825f

@@ -1375,7 +1375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicVolume: 0.5
   effectsVolume: 0.5
-  coins: 500
+  coins: 30
   currentRound: 0
   inventory: []
   hasMagicShades: 0
