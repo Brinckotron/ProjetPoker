@@ -6,6 +6,12 @@
 [![C#](https://img.shields.io/badge/C%23-9.0+-blue.svg?style=flat&logo=c-sharp)]()
 [![Platform](https://img.shields.io/badge/Platform-Android-green.svg?style=flat&logo=android)]()
 
+## 📱 Game Screenshots
+
+### Main Menu
+![Main Menu](Media/Menu.jpg)
+*Clean and intuitive main menu interface*
+
 ## 🎯 Project Overview
 
 This project demonstrates advanced Unity development skills through a complete poker-based roguelite game. Players battle through 10 increasingly challenging rounds using poker hands as combat mechanics, with strategic deck-building and upgrade systems creating deep gameplay.
@@ -73,6 +79,9 @@ Custom algorithm that identifies all poker combinations:
 - **Two Pairs, Pair, High Card**
 - **Tie-breaking logic** with proper Ace handling (high/low)
 
+![Hand Detection and Comparison](Media/Win.jpg)
+*Advanced poker hand detection with visual feedback and comparison system*
+
 #### **Advanced AI System**
 Enemy AI with escalating difficulty:
 - **Rounds 1-6**: Basic play patterns
@@ -98,6 +107,9 @@ Enemy AI with escalating difficulty:
 - **Mulligan** - Extra draw per turn
 - **No Thank You** - Force enemy card redraw
 - **Damage Boost** - +1 damage per card in winning hand
+
+![Shop System](Media/Shop.jpg)
+*Comprehensive shop interface with relics, special cards, and consumables*
 
 ---
 
@@ -195,6 +207,9 @@ public void ShuffleDeck()
 2. **Combat Phase**: Play poker hands against AI opponent  
 3. **Resolution**: Calculate damage, apply effects, advance round
 4. **Progression**: Earn coins based on performance and remaining health
+
+![Keep and Redraw Mechanics](Media/Basic.jpg)
+*Strategic card selection interface showing keep and redraw mechanics*
 
 ### **Strategic Depth**
 - **Risk/Reward decisions** in card keeping vs. drawing
